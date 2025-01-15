@@ -5,11 +5,14 @@ import org.example.swm.controllers.duty.DeleteDuties;
 import org.example.swm.controllers.duty.EditDuty;
 import org.example.swm.controllers.duty.ViewDuties;
 import org.example.swm.controllers.staff.AddStaffMember;
-import org.example.swm.controllers.staff.DeleteStaffMembers;`
+import org.example.swm.controllers.staff.DeleteStaffMembers;
 import org.example.swm.controllers.staff.EditStaffMember;
 import org.example.swm.controllers.staff.ViewStaffMembers;
 import org.example.swm.controllers.workload.ViewWorkload;
+import org.example.swm.services.PasswordService;
 
+import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 import java.util.Scanner;
 
 /**
@@ -23,7 +26,33 @@ public class App {
      * @param args the input arguments
      */
     public static void main(String[] args) {
+        login();
         handleChoice();
+    }
+
+    /**
+     * Method to login user via username and password
+     */
+    private static void login() {
+        Scanner sc = new Scanner(System.in);
+        boolean isLoggedIn = false;
+
+        while (!isLoggedIn) {
+            System.out.print("Enter username: ");
+            String username = sc.nextLine();
+            System.out.print("Enter password: ");
+            String password = sc.nextLine();
+            try {
+                if (PasswordService.verifyUser(username, password)) {
+                    System.out.println("Login successful!");
+                    isLoggedIn = true;
+                } else {
+                    System.out.println("Invalid username or password. Please try again.");
+                }
+            } catch (IOException | NoSuchAlgorithmException e) {
+                System.out.println("An error occurred during login: " + e.getMessage());
+            }
+        }
     }
 
     /**
