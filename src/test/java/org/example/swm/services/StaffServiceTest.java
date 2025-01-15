@@ -31,9 +31,6 @@ class StaffServiceTest {
         assertNotNull(map);
         boolean expected = mockStaffService.isReadToFileCalled();
         assertTrue(expected);
-//        StaffMember retrievedStaffMemberMock = mockStaffService.getStaffMember(1);
-//        assertNotNull(retrievedStaffMemberMock);
-//        assertEquals("John", retrievedStaffMemberMock.getName());
     }
 
     /**
@@ -45,9 +42,6 @@ class StaffServiceTest {
         mockStaffService.addStaffMember(staffMemberMock);
         boolean expected = mockStaffService.isWriteToFileCalled();
         assertTrue(expected);
-//        StaffMember retrievedStaffMemberMock = mockStaffService.getStaffMember(staffMemberMock.getId());
-//        assertNotNull(retrievedStaffMemberMock);
-//        assertEquals("John", retrievedStaffMemberMock.getName());
     }
 
     /**

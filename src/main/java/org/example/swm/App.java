@@ -5,7 +5,7 @@ import org.example.swm.controllers.duty.DeleteDuties;
 import org.example.swm.controllers.duty.EditDuty;
 import org.example.swm.controllers.duty.ViewDuties;
 import org.example.swm.controllers.staff.AddStaffMember;
-import org.example.swm.controllers.staff.DeleteStaffMembers;
+import org.example.swm.controllers.staff.DeleteStaffMembers;`
 import org.example.swm.controllers.staff.EditStaffMember;
 import org.example.swm.controllers.staff.ViewStaffMembers;
 import org.example.swm.controllers.workload.ViewWorkload;
