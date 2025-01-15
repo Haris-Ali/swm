@@ -17,7 +17,7 @@ public class PasswordService {
      * @return the SHA-512 hashed password
      * @throws NoSuchAlgorithmException exception for missing algorithm
      */
-    public static String hashPassword(String password, byte[] salt) throws NoSuchAlgorithmException {
+    public String hashPassword(String password, byte[] salt) throws NoSuchAlgorithmException {
         MessageDigest md = MessageDigest.getInstance("SHA-512");
         md.update(salt);
 
@@ -34,7 +34,7 @@ public class PasswordService {
      * @throws IOException exception for error in file read/write
      * @throws NoSuchAlgorithmException exception for missing algorithm
      */
-    public static boolean verifyUser(String username, String password) throws IOException, NoSuchAlgorithmException {
+    public boolean verifyUser(String username, String password) throws IOException, NoSuchAlgorithmException {
         try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -59,7 +59,7 @@ public class PasswordService {
      * @throws IOException              if file operations fail
      * @throws NoSuchAlgorithmException if hashing algorithm is missing
      */
-    public static void saveUser(String username, String password) throws IOException, NoSuchAlgorithmException {
+    public void saveUser(String username, String password) throws IOException, NoSuchAlgorithmException {
         SecureRandom sr = new SecureRandom();
         byte[] salt = new byte[16];
         sr.nextBytes(salt);

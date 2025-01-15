@@ -37,13 +37,15 @@ public class App {
         Scanner sc = new Scanner(System.in);
         boolean isLoggedIn = false;
 
+        PasswordService ps = new PasswordService();
+
         while (!isLoggedIn) {
             System.out.print("Enter username: ");
             String username = sc.nextLine();
             System.out.print("Enter password: ");
             String password = sc.nextLine();
             try {
-                if (PasswordService.verifyUser(username, password)) {
+                if (ps.verifyUser(username, password)) {
                     System.out.println("Login successful!");
                     isLoggedIn = true;
                 } else {
