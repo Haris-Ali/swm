@@ -1,10 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="org.example.swm.controllers.staff.AddStaffMember"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="400.0" prefWidth="600.0" stylesheets="@../../styles/addstaffmember.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.swm.controllers.staff.AddStaffMember">
+   <children>
+      <Text layoutX="63.0" layoutY="142.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="title" text="ADD STAFF MEMBER" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
+      <VBox layoutX="26.0" layoutY="71.0" prefHeight="250.0" prefWidth="275.0" styleClass="form-container" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label text="Name:" />
+            <TextField fx:id="name_field" styleClass="input-field" />
+            <Label text="Contract Type:" />
+            <ChoiceBox fx:id="contract_field" prefWidth="275.0" styleClass="contract-type-selector" />
+            <Label text="Subject Area:" />
+            <TextField fx:id="subject_area_field" styleClass="input-field" />
+            <Label text="Line Manager:" />
+            <TextField fx:id="line_manager_field" styleClass="input-field" />
+         </children>
+      </VBox>
+      <Button fx:id="add_button" layoutX="20.0" layoutY="330.0" mnemonicParsing="false" text="Add Staff Member" />
+      <VBox layoutX="311.0" layoutY="60.0" prefHeight="250.0" prefWidth="275.0" styleClass="form-container" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
+         <children>
+            <Label fx:id="error_label" />
+            <Label fx:id="success_label" />
+         </children>
+      </VBox>
+   </children>
 </AnchorPane>

@@ -1,0 +1,32 @@
+.title {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+    -fx-fill: #213555;
+}
+
+.form-container {
+    -fx-spacing: 5;
+}
+
+.form-container Label {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-fill: #213555;
+}
+
+.contract-type-selector {
+    -fx-background-color: #FFF;
+}
+
+.form-container .input-field {
+    -fx-background-color: #FFF;
+    -fx-pref-height: 35;
+    -fx-font-size: 1.2em;
+}
+
+Button {
+    -fx-background-color: #213555;
+    -fx-text-fill: #FFF;
+    -fx-pref-height: 30;
+    -fx-font-size: 1.2em;
+}
