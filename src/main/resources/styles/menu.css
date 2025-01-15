@@ -1,0 +1,51 @@
+.main-menu-container {
+    -fx-background-color: #FFF;
+    -fx-alignment: center;
+}
+
+.left-container {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(two-pass-box, #AAA, 5, 0, 0, 4);
+}
+
+.title-container {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 20 20 0 0;
+    -fx-alignment: top_center;
+    -fx-padding: 10;
+}
+
+.title-container Text {
+    -fx-fill: #213555;
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+}
+
+.menu-container {
+    -fx-padding: 10;
+    -fx-spacing: 20;
+}
+
+.menu-container Button {
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+    -fx-background-color: #FFF;
+    -fx-text-fill: #213555;
+    -fx-font-size: 1.1em;
+    -fx-alignment: center_left;
+    -fx-effect: dropshadow(three-pass-box, #DDD, 5, 0, 0, 6);
+}
+
+.menu-container Button:hover {
+    -fx-cursor: hand;
+}
+
+.alt-menu-button {
+    -fx-pref-width: 150;
+    -fx-pref-height: 40;
+    -fx-text-fill: #FFF;
+    -fx-background-color: #213555;
+    -fx-font-size: 1.1em;
+    -fx-alignment: center_left;
+}

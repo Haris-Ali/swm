@@ -5,6 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import org.example.swm.models.ViewFactoryModel;
 import org.example.swm.services.PasswordService;
 
 import java.io.IOException;
@@ -40,6 +42,9 @@ public class LoginController implements Initializable {
         try {
             if (ps.verifyUser(username_field.getText(), password_field.getText())) {
                 success_label.setText("Login successful!");
+                Stage stage = (Stage) login_button.getScene().getWindow();
+                ViewFactoryModel.getInstance().getViewFactory().closeStage(stage);
+                ViewFactoryModel.getInstance().getViewFactory().showDashboardWindow();
             } else {
                 error_label.setText("Invalid username or password. Please try again.");
             }
