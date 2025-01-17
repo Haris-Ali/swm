@@ -57,5 +57,10 @@ public class AddStaffMember implements Initializable {
         staffService.addStaffMember(sm);
         error_label.setText("");
         success_label.setText("Staff member added successfully!");
+
+        name_field.clear();
+        contract_field.valueProperty().set(null);
+        subject_area_field.clear();
+        line_manager_field.clear();
     }
 }

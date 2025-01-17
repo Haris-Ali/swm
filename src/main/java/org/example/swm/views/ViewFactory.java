@@ -1,12 +1,48 @@
 package org.example.swm.views;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.example.swm.controllers.DashboardController;
 
 public class ViewFactory {
-    public ViewFactory() {}
+    private final StringProperty selectedMenuItem;
+    private AnchorPane addStaffMemberView;
+    private AnchorPane viewStaffMemberView;
+
+    public ViewFactory() {
+        this.selectedMenuItem = new SimpleStringProperty("");
+    }
+
+    public StringProperty getSelectedMenuItem() {
+        return selectedMenuItem;
+    }
+
+    public AnchorPane getAddStaffMemberView() {
+        if (addStaffMemberView == null) {
+            try {
+                addStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/AddStaffMember.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return addStaffMemberView;
+    }
+
+    public AnchorPane getViewStaffMemberView() {
+        if (viewStaffMemberView == null) {
+            try {
+                viewStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMembers.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return viewStaffMemberView;
+    }
 
     public void showLoginWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
@@ -15,6 +51,8 @@ public class ViewFactory {
 
     public void showDashboardWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
+        DashboardController dashboardController = new DashboardController();
+        fxmlLoader.setController(dashboardController);
         createStage(fxmlLoader);
     }
 

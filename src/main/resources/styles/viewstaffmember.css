@@ -1,0 +1,17 @@
+.title {
+    -fx-font-size: 1.5em;
+    -fx-font-weight: bold;
+    -fx-fill: #213555;
+}
+
+Button {
+    -fx-background-color: #213555;
+    -fx-text-fill: #FFF;
+    -fx-pref-height: 30;
+    -fx-font-size: 1.2em;
+}
+
+.searchBar {
+    -fx-pref-height: 30;
+    -fx-font-size: 1.2em;
+}

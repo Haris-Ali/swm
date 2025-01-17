@@ -2,7 +2,7 @@ package org.example.swm.controllers;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import org.example.swm.controllers.staff.AddStaffMember;
+import org.example.swm.models.ViewFactoryModel;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,9 +21,15 @@ public class MenuController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        addSM_button.setOnAction(e -> {
-            AddStaffMember addStaffMember = new AddStaffMember();
-            addStaffMember.setup();
-        });
+        addListeners();
+    }
+
+    private void addListeners() {
+        addSM_button.setOnAction(e -> changeView("AddStaffMember"));
+        viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
+    }
+
+    private void changeView(String viewName) {
+        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set(viewName);
     }
 }

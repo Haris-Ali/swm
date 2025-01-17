@@ -27,8 +27,8 @@
       <Button fx:id="add_button" layoutX="20.0" layoutY="330.0" mnemonicParsing="false" text="Add Staff Member" />
       <VBox layoutX="311.0" layoutY="60.0" prefHeight="250.0" prefWidth="275.0" styleClass="form-container" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="60.0">
          <children>
-            <Label fx:id="error_label" />
-            <Label fx:id="success_label" />
+            <Label fx:id="error_label" styleClass="error-label" />
+            <Label fx:id="success_label" styleClass="success-label" />
          </children>
       </VBox>
    </children>
