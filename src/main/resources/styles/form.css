@@ -42,3 +42,8 @@ Button {
     -fx-font-weight: bold;
     -fx-text-fill: #3E7B27;
 }
+
+.searchBar {
+    -fx-pref-height: 30;
+    -fx-font-size: 1.2em;
+}

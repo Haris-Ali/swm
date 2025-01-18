@@ -27,6 +27,7 @@ public class MenuController implements Initializable {
     private void addListeners() {
         addSM_button.setOnAction(e -> changeView("AddStaffMember"));
         viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
+        editSM_button.setOnAction(e -> changeView("EditStaffMember"));
     }
 
     private void changeView(String viewName) {

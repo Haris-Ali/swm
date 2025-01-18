@@ -13,6 +13,7 @@ public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private AnchorPane addStaffMemberView;
     private AnchorPane viewStaffMemberView;
+    private AnchorPane editStaffMemberView;
 
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
@@ -42,6 +43,17 @@ public class ViewFactory {
             }
         }
         return viewStaffMemberView;
+    }
+
+    public AnchorPane getEditStaffMemberView() {
+        if (editStaffMemberView == null) {
+            try {
+                editStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/EditStaffMember.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return editStaffMemberView;
     }
 
     public void showLoginWindow() {

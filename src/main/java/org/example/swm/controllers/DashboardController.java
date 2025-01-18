@@ -19,6 +19,7 @@ public class DashboardController implements Initializable {
                 .addListener((observableValue, prev, next) -> {
                     switch (next) {
                         case "ViewStaffMembers" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewStaffMemberView());
+                        case "EditStaffMember" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getEditStaffMemberView());
                         default -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddStaffMemberView());
                     }
                 });
