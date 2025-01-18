@@ -19,3 +19,8 @@ Button {
 .deleteBtn {
     -fx-background-color: #F00;
 }
+
+.editBtn {
+    -fx-background-color: #E4E0E1;
+    -fx-text-fill: #000;
+}

@@ -2,6 +2,7 @@ package org.example.swm.controllers;
 
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
 import org.example.swm.models.ViewFactoryModel;
 
 import java.net.URL;
@@ -19,10 +20,6 @@ public class MenuController implements Initializable {
      * The View sm button.
      */
     public Button viewSM_button;
-    /**
-     * The Add duty button.
-     */
-    public Button addDuty_button;
     /**
      * The View duty button.
      */
@@ -47,6 +44,7 @@ public class MenuController implements Initializable {
     private void addListeners() {
         addSM_button.setOnAction(e -> changeView("AddStaffMember"));
         viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
+        logout_button.setOnAction(e -> logout());
     }
 
     /**
@@ -55,5 +53,11 @@ public class MenuController implements Initializable {
      */
     private void changeView(String viewName) {
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set(viewName);
+    }
+
+    private void logout() {
+        Stage stage = (Stage) logout_button.getScene().getWindow();
+        ViewFactoryModel.getInstance().getViewFactory().closeStage(stage);
+        ViewFactoryModel.getInstance().getViewFactory().showLoginWindow();
     }
 }

@@ -7,14 +7,17 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.swm.controllers.DashboardController;
+import org.example.swm.models.Duty;
 import org.example.swm.models.StaffMember;
 
 public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private StaffMember staffMember;
+    private Duty duty;
     private AnchorPane addStaffMemberView;
     private AnchorPane viewStaffMemberView;
     private AnchorPane editStaffMemberView;
+    private AnchorPane viewStaffMemberDetailsView;
 
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
@@ -25,13 +28,18 @@ public class ViewFactory {
     }
 
     public void setStaffMember(StaffMember staffMember) {
-        System.out.println("Updating staffMember in ViewFactory: " + staffMember.getName());
         this.staffMember = staffMember;
     }
 
     public StaffMember getStaffMember() {
-        return staffMember;
+        return this.staffMember;
     }
+
+    public void setDuty(Duty duty) {
+        this.duty = duty;
+    }
+
+    public Duty getDuty() { return this.duty; }
 
     public AnchorPane getAddStaffMemberView() {
         if (addStaffMemberView == null) {
@@ -62,6 +70,15 @@ public class ViewFactory {
             e.printStackTrace();
         }
         return editStaffMemberView;
+    }
+
+    public AnchorPane getViewStaffMemberDetailsView() {
+        try {
+            viewStaffMemberDetailsView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMember.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return viewStaffMemberDetailsView;
     }
 
     public void showLoginWindow() {

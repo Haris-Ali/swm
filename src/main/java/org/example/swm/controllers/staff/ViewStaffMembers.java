@@ -118,14 +118,21 @@ public class ViewStaffMembers implements Initializable {
      */
     // Reference: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view - START
     private void addActionButtons() {
-        Callback<TableColumn<StaffMember, Void>, TableCell<StaffMember, Void>> cellFactory = param -> new TableCell<StaffMember, Void>() {
+        Callback<TableColumn<StaffMember, Void>, TableCell<StaffMember, Void>> cellFactory = param -> new TableCell<>() {
+            private final Button viewStaffMemberButton = new Button("View Details");
             private final Button editButton = new Button("Edit");
             private final Button deleteButton = new Button("Delete");
 
             {
+                viewStaffMemberButton.setOnAction(e -> {
+                    StaffMember staffMember = getTableView().getItems().get(getIndex());
+                    handleStaffAction(staffMember, "ViewStaffMember");
+                });
+
+                editButton.getStyleClass().add("editBtn");
                 editButton.setOnAction(e -> {
                     StaffMember staffMember = getTableView().getItems().get(getIndex());
-                    handleEditAction(staffMember);
+                    handleStaffAction(staffMember, "EditStaffMember");
                 });
 
                 deleteButton.getStyleClass().add("deleteBtn");
@@ -134,7 +141,7 @@ public class ViewStaffMembers implements Initializable {
                     handleDeleteAction(staffMember);
                 });
 
-                HBox buttons = new HBox(5, editButton, deleteButton);
+                HBox buttons = new HBox(5, viewStaffMemberButton, editButton, deleteButton);
                 setGraphic(buttons);
             }
 
@@ -142,7 +149,7 @@ public class ViewStaffMembers implements Initializable {
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) setGraphic(null);
-                else setGraphic(new HBox(5, editButton, deleteButton));
+                else setGraphic(new HBox(5, viewStaffMemberButton, editButton, deleteButton));
             }
         };
 
@@ -150,14 +157,14 @@ public class ViewStaffMembers implements Initializable {
     }
     // Reference: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view - END
 
-
     /**
-     * Function to handle edit button click for staff member
+     * Function to handle actions for staff member
      * @param staffMember the staff member
+     * @param action the action to be performed (e.g., "ViewStaffMember", "AddDuty", "EditStaffMember")
      */
-    private void handleEditAction(StaffMember staffMember) {
+    private void handleStaffAction(StaffMember staffMember, String action) {
         ViewFactoryModel.getInstance().getViewFactory().setStaffMember(staffMember);
-        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("EditStaffMember");
+        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set(action);
     }
 
     /**

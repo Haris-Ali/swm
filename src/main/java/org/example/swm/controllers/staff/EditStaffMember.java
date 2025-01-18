@@ -35,7 +35,6 @@ public class EditStaffMember implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        System.out.println("INITIALIZE");
         loadStaffMemberData();
         edit_button.setOnAction(e -> editStaffMember());
     }
@@ -45,8 +44,6 @@ public class EditStaffMember implements Initializable {
      */
     private void loadStaffMemberData() {
         sm = ViewFactoryModel.getInstance().getViewFactory().getStaffMember();
-        System.out.println("staff member in EditStaffMember: " + sm.getName());
-        System.out.println(sm.toString());
 
         contract_field.getItems().clear();
         contract_field.getItems().add("Full time");
