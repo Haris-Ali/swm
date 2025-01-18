@@ -57,6 +57,7 @@ public class ViewStaffMember implements Initializable {
         initializeTableColumns();
         edit_button.setOnAction(e -> handleEditStaffMemberAction());
         delete_button.setOnAction(e -> handleDeleteStaffMemberAction());
+        addDuty_button.setOnAction(e -> handleAddDutyAction());
         deleteAllDuties_button.setOnAction(e -> handleDeleteAllDutiesAction());
     }
 
@@ -148,6 +149,10 @@ public class ViewStaffMember implements Initializable {
         dutyService.removeAllDutiesAgainstStaffMember(sm.getId());
         staffService.removeStaffMember(sm.getId());
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("ViewStaffMembers");
+    }
+
+    private void handleAddDutyAction() {
+        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("AddDuty");
     }
 
     /**

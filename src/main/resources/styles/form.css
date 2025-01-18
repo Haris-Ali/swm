@@ -37,13 +37,13 @@ Button {
     -fx-font-size: 1.2em;
 }
 
-.form-container .error-label {
+.error-label {
     -fx-font-size: 1.1em;
     -fx-font-weight: bold;
     -fx-text-fill: #F00;
 }
 
-.form-container .success-label {
+.success-label {
     -fx-font-size: 1.1em;
     -fx-font-weight: bold;
     -fx-text-fill: #3E7B27;

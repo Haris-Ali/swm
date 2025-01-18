@@ -18,6 +18,7 @@ public class ViewFactory {
     private AnchorPane viewStaffMemberView;
     private AnchorPane editStaffMemberView;
     private AnchorPane viewStaffMemberDetailsView;
+    private AnchorPane addDutyView;
 
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
@@ -79,6 +80,17 @@ public class ViewFactory {
             e.printStackTrace();
         }
         return viewStaffMemberDetailsView;
+    }
+
+    public AnchorPane getAddDutyView() {
+        if (addDutyView == null) {
+            try {
+                addDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/AddDuty.fxml")).load();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return addDutyView;
     }
 
     public void showLoginWindow() {

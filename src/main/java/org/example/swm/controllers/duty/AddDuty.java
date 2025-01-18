@@ -1,19 +1,26 @@
 package org.example.swm.controllers.duty;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import org.example.swm.models.Duty;
 import org.example.swm.models.StaffMember;
+import org.example.swm.models.ViewFactoryModel;
 import org.example.swm.services.DutyService;
 import org.example.swm.services.StaffService;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.net.URL;
+import java.util.*;
 
-/**
- * The type Add duty.
- */
-public class AddDuty {
+public class AddDuty implements Initializable {
+    public ChoiceBox<DutyType> dutyType_field;
+    public ComboBox<String> activityType_field;
+    public TextField description_field;
+    public ChoiceBox<String> week_field;
+    public TextField duration_field;
+    public TextField instances_field;
+    public Button add_duty_button;
+    public Label error_label;
+    public Label success_label;
     /**
      * The Duty service.
      */
@@ -23,37 +30,9 @@ public class AddDuty {
      */
     StaffService staffService = new StaffService();
     /**
-     * The scanner object instance.
-     */
-    Scanner sc = new Scanner(System.in);
-    /**
      * The Staff member.
      */
     StaffMember staffMember;
-    /**
-     * The Selected duty type.
-     */
-    DutyType selectedDutyType;
-    /**
-     * The Selected activity type.
-     */
-    String selectedActivityType;
-    /**
-     * The Description.
-     */
-    String description;
-    /**
-     * The Selected weeks.
-     */
-    String selectedWeeks;;
-    /**
-     * The Duration.
-     */
-    int duration;
-    /**
-     * The Instances.
-     */
-    int instances;
 
     private static final HashMap<DutyType, List<String>> activityTypeOptions = new HashMap<>(); // Hashmap to store activity type options
     //<-***** https://stackoverflow.com/questions/6881224/is-there-a-better-alternative-to-listt-initalization-than-invoking-arrays-asli  - START
@@ -78,156 +57,63 @@ public class AddDuty {
             "Trimester 1", "Trimester 2", "Trimester 3", "All Year"
     );
 
-    /**
-     * Setup/entry method
-     */
-    public void setup() {
-        inputStaffMemberId();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        staffMember = ViewFactoryModel.getInstance().getViewFactory().getStaffMember();
+
+        dutyType_field.getItems().setAll(List.of(DutyType.values()));
+        week_field.getItems().setAll(weekOptions);
+
+        dutyType_field.setOnAction(e -> setActivityType());
+        add_duty_button.setOnAction(e -> addDuty());
     }
 
     /**
-     * Method to take input for staff member id
-     * Checks for existence before calling other methods for creating new duty
+     * Change activity type based on duty type selection
      */
-    private void inputStaffMemberId() {
-        int staffId = -1;
-        staffId = takeInputForStaffMember(staffId, sc);
-        staffMember = staffService.getStaffMember(staffId);
-        if (staffMember == null) {
-            System.out.println("No staff member with this id found");
-            return;
-        }
-        addDutyType();
-        addDutyActivityType();
-        addDescription();
-        addWeeks();
-        addDuration();
-        addInstances();
-        addDuty(staffId);
-    }
-
-    private void addDutyType() {
-        System.out.println("Select a Duty Type:");
-        int index = 1;
-        for (DutyType type : DutyType.values()) {
-            System.out.println(index++ + ". " + type);
-        }
-        System.out.print("Enter your choice: ");
-        int dutyChoice = sc.nextInt();
-        sc.nextLine();
-
-        try {
-            selectedDutyType = DutyType.values()[dutyChoice - 1];
-        } catch (ArrayIndexOutOfBoundsException e) {
-            System.out.println("Invalid duty type selected.");
-        }
-    }
-
-    /**
-     * Method to take input for duty activity type
-     */
-    private void addDutyActivityType() {
+    private void setActivityType() {
+        DutyType selectedDutyType = dutyType_field.getValue();
         List<String> activities = activityTypeOptions.get(selectedDutyType);
-        System.out.println("Select an Activity Type for " + selectedDutyType + ":");
-        for (int i = 0; i < activities.size(); i++) {
-            System.out.println((i + 1) + ". " + activities.get(i));
-        }
-
-        System.out.print("Enter your choice: ");
-        int activityChoice = sc.nextInt();
-        sc.nextLine();
-
-        try {
-            selectedActivityType = activities.get(activityChoice - 1);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid activity type selected.");
-        }
-    }
-
-    /**
-     * Method to take input for duty description
-     */
-    private void addDescription() {
-        System.out.print("Enter description: ");
-        description = sc.nextLine();
-    }
-
-    /**
-     * Method to take input for duty weeks (trimester 1/2/3 or all year)
-     */
-    private void addWeeks() {
-        System.out.println("Select the Weeks:");
-        for (int i = 0; i < weekOptions.size(); i++) {
-            System.out.println((i + 1) + ". " + weekOptions.get(i));
-        }
-
-        System.out.print("Enter your choice: ");
-        int weekChoice = sc.nextInt();
-        sc.nextLine();
-
-        try {
-            selectedWeeks = weekOptions.get(weekChoice - 1);
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println("Invalid weeks selection.");
-        }
-    }
-
-    /**
-     * Method to take input for duty duration in hours
-     */
-    private void addDuration() {
-        System.out.print("Enter duration (hours per week): ");
-        duration = sc.nextInt();
-    }
-
-    /**
-     * Method to take input for duty instances
-     */
-    private void addInstances() {
-        System.out.print("Enter instances: ");
-        instances = sc.nextInt();
+        activityType_field.setDisable(false);
+        activityType_field.getItems().setAll(activities);
     }
 
     /**
      * Method that creates new duty object, calculate hour categories based on duration and instances.
      * First check for workload being less than 1570 before adding duty to staff member and updating files.
-     * @param staffId the staff member id
      */
-    private void addDuty(int staffId) {
-        Duty duty = new Duty(staffId, selectedDutyType.name(), selectedActivityType, description, selectedWeeks, duration, instances);
+    private void addDuty() {
+        String dutyType = String.valueOf(dutyType_field.getValue());
+        String activityType = activityType_field.getValue();
+        String description = description_field.getText();
+        String weeks = week_field.getValue();
+        String duration = duration_field.getText();
+        String instances = instances_field.getText();
+
+        error_label.setText("");
+        success_label.setText("");
+        if ((dutyType == null || dutyType.isEmpty()) || (activityType == null || activityType.isEmpty())
+                || (description == null || description.isEmpty()) || (weeks == null || weeks.isEmpty())
+                || (duration == null || duration.isEmpty()) || (instances == null || instances.isEmpty())) {
+            error_label.setText("Please enter all fields");
+            return;
+        }
+        if (!duration.chars().allMatch(Character::isDigit) || !instances.chars().allMatch(Character::isDigit)) {
+            error_label.setText("Duration and/or instances must be numbers");
+            return;
+        }
+
+        Duty duty = new Duty(staffMember.getId(), dutyType, activityType, description, weeks, Integer.parseInt(duration), Integer.parseInt(instances));
         duty.calculateHourCategories();
         int workload = duty.getWorkloadForDuty();
         int totalWorkload = staffMember.getTotalWorkload();
         if (totalWorkload + workload > 1570) {
-            System.out.println("Total workload exceeding the maximum limit of 1570. Please enter appropriate values for duration and instances");
+            error_label.setText("Total workload exceeding the maximum limit of 1570. Please enter appropriate values for duration and instances");
             return;
         }
-        staffService.updateTotalWorkload(staffId, totalWorkload + workload);
-        dutyService.addDutyAgainstStaffMember(staffId, duty);
-    }
+        staffService.updateTotalWorkload(staffMember.getId(), totalWorkload + workload);
+        dutyService.addDutyAgainstStaffMember(staffMember.getId(), duty);
 
-    /**
-     * Take input for staff member int.
-     *
-     * @param staffId the staff id
-     * @param sc      the scanner object instance
-     * @return the input for staff member id
-     */
-    public int takeInputForStaffMember(int staffId, Scanner sc) {
-        while (staffId == -1) {
-            System.out.print("Enter staff ID: ");
-            try {
-                staffId = Integer.parseInt(sc.nextLine());
-                if (staffId > 0) {
-                    break;
-                } else {
-                    System.out.println("Invalid input. Staff Ids can only be positive numbers");
-                }
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter a valid number");
-            }
-        }
-        return staffId;
+        success_label.setText("Duty added successfully!");
     }
-
 }
