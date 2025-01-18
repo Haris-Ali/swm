@@ -44,6 +44,7 @@ public class MenuController implements Initializable {
     private void addListeners() {
         addSM_button.setOnAction(e -> changeView("AddStaffMember"));
         viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
+        viewDuty_button.setOnAction(e -> changeView("ViewDuties"));
         logout_button.setOnAction(e -> logout());
     }
 

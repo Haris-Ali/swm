@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class DutyService {
     private static final String DATA_DIRECTORY_PATH = "data";
-    private static final String DUTY_DIRECTORY_PATH = "data/duties"; // Path where duties will be stored
+    private static final String DUTY_DIRECTORY_PATH = "duties"; // Path where duties will be stored
     private HashMap<Integer, Duty> dutiesHashMap; // Duty hash map to store duties
 
     /**
