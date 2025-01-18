@@ -16,22 +16,73 @@ import java.util.HashMap;
 import java.util.ResourceBundle;
 
 public class ViewStaffMember implements Initializable {
+    /**
+     * The Name field.
+     */
     public TextField name_field;
+    /**
+     * The Contract type field.
+     */
     public TextField contract_type_field;
+    /**
+     * The Subject area field.
+     */
     public TextField subject_area_field;
+    /**
+     * The Line manager field.
+     */
     public TextField line_manager_field;
+    /**
+     * The Duties table.
+     */
     public TableView<Duty> duties_table;
+    /**
+     * The Id column.
+     */
     public TableColumn idColumn;
+    /**
+     * The Type column.
+     */
     public TableColumn typeColumn;
+    /**
+     * The Activity type column.
+     */
     public TableColumn activityTypeColumn;
+    /**
+     * The Description column.
+     */
     public TableColumn descriptionColumn;
+    /**
+     * The Weeks column.
+     */
     public TableColumn weeksColumn;
+    /**
+     * The Duration column.
+     */
     public TableColumn durationColumn;
+    /**
+     * The Instances column.
+     */
     public TableColumn instancesColumn;
+    /**
+     * The Action column.
+     */
     public TableColumn actionColumn;
+    /**
+     * The Add duty button.
+     */
     public Button addDuty_button;
+    /**
+     * The Edit button.
+     */
     public Button edit_button;
+    /**
+     * The Delete button.
+     */
     public Button delete_button;
+    /**
+     * The Delete all duties button.
+     */
     public Button deleteAllDuties_button;
     /**
      * The Staff service.
@@ -115,13 +166,13 @@ public class ViewStaffMember implements Initializable {
                 editButton.getStyleClass().add("editBtn");
                 editButton.setOnAction(e -> {
                     Duty duty = getTableView().getItems().get(getIndex());
-                    handleDutyAction(duty);
+                    handleDutyEditAction(duty);
                 });
 
                 deleteButton.getStyleClass().add("deleteBtn");
                 deleteButton.setOnAction(e -> {
                     Duty duty = getTableView().getItems().get(getIndex());
-                    handleDeleteAction(duty);
+                    handleDeleteDutyAction(duty);
                 });
 
                 HBox buttons = new HBox(5, editButton, deleteButton);
@@ -140,17 +191,26 @@ public class ViewStaffMember implements Initializable {
     }
     // Reference: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view - END
 
+    /**
+     * Function to handle staff member edit button
+     */
     private void handleEditStaffMemberAction() {
         ViewFactoryModel.getInstance().getViewFactory().setStaffMember(sm);
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("EditStaffMember");
     }
 
+    /**
+     * Function to handle staff member delete button
+     */
     private void handleDeleteStaffMemberAction() {
         dutyService.removeAllDutiesAgainstStaffMember(sm.getId());
         staffService.removeStaffMember(sm.getId());
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("ViewStaffMembers");
     }
 
+    /**
+     * Function to handle add new duty button
+     */
     private void handleAddDutyAction() {
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("AddDuty");
     }
@@ -160,19 +220,19 @@ public class ViewStaffMember implements Initializable {
      *
      * @param duty the staff member's duty
      */
-    private void handleDutyAction(Duty duty) {
+    private void handleDutyEditAction(Duty duty) {
         ViewFactoryModel.getInstance().getViewFactory().setDuty(duty);
-        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("EditStaffMember");
+        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("EditDuty");
     }
 
     /**
      * Function to handle delete button click for duty
      * @param duty the staff member duty
      */
-    private void handleDeleteAction(Duty duty) {
+    private void handleDeleteDutyAction(Duty duty) {
         duties_table.getItems().remove(duty);
-//        dutyService.removeAllDutiesAgainstStaffMember(duty.getId());
-//        staffService.removeStaffMember(duty.getId());
+        dutyService.removeDuty(sm.getId(), duty);
+        staffService.updateTotalWorkload(sm.getId(), sm.getTotalWorkload() - duty.getWorkloadForDuty());
     }
 
     /**
@@ -180,7 +240,7 @@ public class ViewStaffMember implements Initializable {
      */
     private void handleDeleteAllDutiesAction() {
         duties_table.getItems().clear();
-//        dutyService.removeAllDuties();
-//        staffService.removeAllStaffMembers();
+        dutyService.removeAllDutiesAgainstStaffMember(sm.getId());
+        staffService.updateTotalWorkload(sm.getId(), 0);
     }
 }

@@ -53,3 +53,12 @@ Button {
     -fx-pref-height: 30;
     -fx-font-size: 1.2em;
 }
+
+.deleteBtn {
+    -fx-background-color: #F00;
+}
+
+.editBtn {
+    -fx-background-color: #E4E0E1;
+    -fx-text-fill: #000;
+}

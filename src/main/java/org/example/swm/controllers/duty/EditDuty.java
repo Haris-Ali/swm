@@ -1,19 +1,29 @@
 package org.example.swm.controllers.duty;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.*;
 import org.example.swm.models.Duty;
 import org.example.swm.models.StaffMember;
+import org.example.swm.models.ViewFactoryModel;
 import org.example.swm.services.DutyService;
 import org.example.swm.services.StaffService;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Scanner;
+import java.net.URL;
+import java.util.*;
 
 /**
  * The class Edit duty.
  */
-public class EditDuty {
+public class EditDuty implements Initializable {
+    public ChoiceBox<DutyType> dutyType_field;
+    public ComboBox<String> activityType_field;
+    public TextField description_field;
+    public ChoiceBox<String> week_field;
+    public TextField duration_field;
+    public TextField instances_field;
+    public Button edit_duty_button;
+    public Label error_label;
+    public Label success_label;
     /**
      * The Staff service.
      */
@@ -22,18 +32,6 @@ public class EditDuty {
      * The Duty service.
      */
     DutyService dutyService = new DutyService();
-    /**
-     * The Staff members.
-     */
-    HashMap<Integer, StaffMember> staffMembers;
-    /**
-     * The Duties.
-     */
-    HashMap<Integer, Duty> duties;
-    /**
-     * The Scanner object instance
-     */
-    Scanner sc = new Scanner(System.in);
     /**
      * The Staff id.
      */
@@ -71,152 +69,42 @@ public class EditDuty {
             "Trimester 1", "Trimester 2", "Trimester 3", "All Year"
     );
 
-    /**
-     * Read staff members from file. Check for their existence.
-     */
-    public void setup() {
-        staffMembers = staffService.readFromFile();
-        if (staffMembers.isEmpty()) System.out.println("No staff members found");
-        else getInput();
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        duty = ViewFactoryModel.getInstance().getViewFactory().getDuty();
+        dutyId = duty.getId();
+        staffId = duty.getStaffId();
+
+        loadDutyData();
+        edit_duty_button.setOnAction(e -> editDuty());
     }
 
     /**
-     * Method to take input for staff member id and duty id
-     * Checks for existence before calling other methods for updating duty
+     * Function to load and display existing duty data
      */
-    private void getInput() {
-        System.out.print("Enter the ID of the staff member to edit: ");
-        staffId = sc.nextInt();
-        sc.nextLine();
+    private void loadDutyData() {
+        dutyType_field.setValue(DutyType.valueOf(duty.getDutyType()));
+        activityType_field.setValue(duty.getActivityType());
+        description_field.setText(duty.getDescription());
+        week_field.setValue(duty.getWeeks());
+        duration_field.setText(String.valueOf(duty.getDuration()));
+        instances_field.setText(String.valueOf(duty.getInstances()));
 
-        if (!staffMembers.containsKey(staffId)) {
-            System.out.println("Staff member does not exist");
-            return;
-        }
-
-        duties = dutyService.readFromFile("data/duties/duties_staff_" + staffId + ".dat", staffId);
-        System.out.print("Enter the ID of the duty to edit: ");
-        dutyId = sc.nextInt();
-        sc.nextLine();
-
-        if (!duties.containsKey(dutyId)) {
-            System.out.println("Duty does not exist");
-            return;
-        }
-        duty = dutyService.getDutyAgainstStaffMember(staffId, dutyId);
-        System.out.println("Editing details for following duty: ");
-        System.out.println("Duty type: " + duty.getDutyType());
-        System.out.println("Duty activity: " + duty.getActivityType());
-        System.out.println("Duty description: " + duty.getDescription());
-        editDutyType();
-        editDutyActivityType();
-        editDescription();
-        editWeeks();
-        editDuration();
-        editInstances();
-        editDuty();
+        dutyType_field.getItems().setAll(DutyType.values());
+        dutyType_field.setOnAction(e -> updateActivityOptions());
+        List<String> activities = activityTypeOptions.get(dutyType_field.getValue());
+        activityType_field.getItems().setAll(activities);
+        week_field.getItems().setAll(weekOptions);
     }
 
     /**
-     * Method to take input for updating duty type
+     * Function to update activity options based on duty type
      */
-    private void editDutyType() {
-        System.out.println("Select a new Duty Type (leave blank to keep \"" + duty.getDutyType() + "\"):");
-        int index = 1;
-        for (DutyType type : DutyType.values()) {
-            System.out.println(index++ + ". " + type);
-        }
-        System.out.print("Enter your choice: ");
-        String dutyChoice = sc.nextLine();
-        if (!dutyChoice.isBlank()) {
-            try {
-                int selectedIndex = Integer.parseInt(dutyChoice);
-                duty.setDutyType(DutyType.values()[selectedIndex - 1].name());
-            } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-                System.out.println("Invalid duty type selection. Keeping existing value.");
-            }
-        }
-    }
-
-    /**
-     * Method to take input for updating duty activity type
-     */
-    private void editDutyActivityType() {
-        List<String> activities = activityTypeOptions.get(DutyType.valueOf(duty.getDutyType()));
-        System.out.println("Select a new Activity Type for " + duty.getDutyType() + " (leave blank to keep \"" + duty.getActivityType() + "\"):");
-        for (int i = 0; i < activities.size(); i++) {
-            System.out.println((i + 1) + ". " + activities.get(i));
-        }
-        System.out.print("Enter your choice: ");
-        String activityChoice = sc.nextLine();
-        if (!activityChoice.isBlank()) {
-            try {
-                int selectedIndex = Integer.parseInt(activityChoice);
-                duty.setActivityType(activities.get(selectedIndex - 1));
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("Invalid activity type selection. Keeping existing value.");
-            }
-        }
-    }
-
-    /**
-     * Method to take input for updating duty description
-     */
-    private void editDescription() {
-        System.out.print("Enter new description (leave blank to keep \"" + duty.getDescription() + "\"): ");
-        String description = sc.nextLine();
-        if (!description.isBlank()) {
-            duty.setDescription(description);
-        }
-    }
-
-    /**
-     * Method to take input for updating duty weeks
-     */
-    private void editWeeks() {
-        System.out.println("Select new Weeks (leave blank to keep \"" + duty.getWeeks() + "\"):");
-        for (int i = 0; i < weekOptions.size(); i++) {
-            System.out.println((i + 1) + ". " + weekOptions.get(i));
-        }
-        System.out.print("Enter your choice: ");
-        String weekChoice = sc.nextLine();
-        if (!weekChoice.isBlank()) {
-            try {
-                int selectedIndex = Integer.parseInt(weekChoice);
-                duty.setWeeks(weekOptions.get(selectedIndex - 1));
-            } catch (NumberFormatException | IndexOutOfBoundsException e) {
-                System.out.println("Invalid weeks selection. Keeping existing value.");
-            }
-        }
-    }
-
-    /**
-     * Method to take input for updating duty duration in hours
-     */
-    private void editDuration() {
-        System.out.print("Enter new duration (hours per week, leave blank to keep \"" + duty.getDuration() + "\"): ");
-        String durationInput = sc.nextLine();
-        if (!durationInput.isBlank()) {
-            try {
-                duty.setDuration(Integer.parseInt(durationInput));
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Keeping existing value.");
-            }
-        }
-    }
-
-    /**
-     * Method to take input for updating duty instances
-     */
-    private void editInstances() {
-        System.out.print("Enter new instances (leave blank to keep \"" + duty.getInstances() + "\"): ");
-        String instancesInput = sc.nextLine();
-        if (!instancesInput.isBlank()) {
-            try {
-                duty.setInstances(Integer.parseInt(instancesInput));
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Keeping existing value.");
-            }
+    private void updateActivityOptions() {
+        DutyType selectedType = dutyType_field.getValue();
+        if (selectedType != null) {
+            List<String> activities = activityTypeOptions.get(selectedType);
+            activityType_field.getItems().setAll(activities);
         }
     }
 
@@ -225,16 +113,38 @@ public class EditDuty {
      * First check for workload being less than 1570 before updating duty to staff member and updating files.
      */
     private void editDuty() {
+        String dutyType = String.valueOf(dutyType_field.getValue());
+        String activityType = activityType_field.getValue();
+        String description = description_field.getText();
+        String weeks = week_field.getValue();
+        String duration = duration_field.getText();
+        String instances = instances_field.getText();
+
+        error_label.setText("");
+        success_label.setText("");
+        if ((dutyType == null || dutyType.isEmpty()) || (activityType == null || activityType.isEmpty())
+                || (description == null || description.isEmpty()) || (weeks == null || weeks.isEmpty())
+                || (duration == null || duration.isEmpty()) || (instances == null || instances.isEmpty())) {
+            error_label.setText("Please enter all fields");
+            return;
+        }
+        if (!duration.chars().allMatch(Character::isDigit) || !instances.chars().allMatch(Character::isDigit)) {
+            error_label.setText("Duration and/or instances must be numbers");
+            return;
+        }
+
         int prevWorkload = duty.getWorkloadForDuty();
         duty.setHours();
         duty.calculateHourCategories();
         int newWorkload = duty.getWorkloadForDuty();
         int totalWorkload = staffService.getStaffMember(staffId).getTotalWorkload();
         if ((totalWorkload - (prevWorkload - newWorkload)) + newWorkload > 1570) {
-            System.out.println("Total workload exceeding the maximum limit of 1570. Please enter appropriate values for duration and instances");
+            error_label.setText("Total workload exceeding the maximum limit of 1570. Please enter appropriate values for duration and instances");
             return;
         }
         staffService.updateTotalWorkload(staffId, totalWorkload - (prevWorkload - newWorkload));
         dutyService.addDutyAgainstStaffMember(staffId, duty);
+
+        success_label.setText("Duty updated successfully!");
     }
 }

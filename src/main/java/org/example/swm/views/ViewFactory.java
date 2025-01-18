@@ -19,6 +19,7 @@ public class ViewFactory {
     private AnchorPane editStaffMemberView;
     private AnchorPane viewStaffMemberDetailsView;
     private AnchorPane addDutyView;
+    private AnchorPane editDutyView;
 
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
@@ -43,23 +44,19 @@ public class ViewFactory {
     public Duty getDuty() { return this.duty; }
 
     public AnchorPane getAddStaffMemberView() {
-        if (addStaffMemberView == null) {
-            try {
-                addStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/AddStaffMember.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            addStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/AddStaffMember.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return addStaffMemberView;
     }
 
     public AnchorPane getViewStaffMemberView() {
-        if (viewStaffMemberView == null) {
-            try {
-                viewStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMembers.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            viewStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMembers.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return viewStaffMemberView;
     }
@@ -83,14 +80,21 @@ public class ViewFactory {
     }
 
     public AnchorPane getAddDutyView() {
-        if (addDutyView == null) {
-            try {
-                addDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/AddDuty.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            addDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/AddDuty.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return addDutyView;
+    }
+
+    public AnchorPane getEditDutyView() {
+        try {
+            editDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/EditDuty.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return editDutyView;
     }
 
     public void showLoginWindow() {
