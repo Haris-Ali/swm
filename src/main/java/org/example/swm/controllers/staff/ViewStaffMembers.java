@@ -1,14 +1,15 @@
 package org.example.swm.controllers.staff;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import org.example.swm.models.StaffMember;
+import org.example.swm.models.ViewFactoryModel;
+import org.example.swm.services.DutyService;
 import org.example.swm.services.StaffService;
 
+import javafx.util.Callback;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.ResourceBundle;
@@ -17,14 +18,60 @@ import java.util.ResourceBundle;
  * The class View staff members.
  */
 public class ViewStaffMembers implements Initializable {
-    public TableView staffMember_table;
+    /**
+     * The Staff member table.
+     */
+    @SuppressWarnings("")
+    public TableView<StaffMember> staffMember_table;
+    /**
+     * The Search bar.
+     */
     public TextField search_bar;
+    /**
+     * The Search button.
+     */
     public Button search_button;
+    /**
+     * The Id column.
+     */
+    public TableColumn idColumn;
+    /**
+     * The Name column.
+     */
+    public TableColumn nameColumn;
+    /**
+     * The Contract type column.
+     */
+    public TableColumn contractTypeColumn;
+    /**
+     * The Subject area column.
+     */
+    public TableColumn subjectAreaColumn;
+    /**
+     * The Line manager column.
+     */
+    public TableColumn lineManagerColumn;
+    /**
+     * The Total workload column.
+     */
+    public TableColumn totalWorkloadColumn;
+    /**
+     * The Action column.
+     */
+    public TableColumn actionColumn;
+    /**
+     * The Delete all button.
+     */
+    public Button delete_all_button;
 
     /**
      * The Staff service.
      */
     StaffService staffService = new StaffService();
+    /**
+     * The Duty service.
+     */
+    DutyService dutyService = new DutyService();
     /**
      * The Staff members.
      */
@@ -34,7 +81,9 @@ public class ViewStaffMembers implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         readFromFile();
+        initializeTableColumns();
         search_button.setOnAction(e -> searchQuery());
+        delete_all_button.setOnAction(e -> handleDeleteAllAction());
     }
 
     /**
@@ -42,32 +91,92 @@ public class ViewStaffMembers implements Initializable {
      */
     private void readFromFile() {
         staffMembers = staffService.readFromFile();
-        if (staffMembers.isEmpty()) System.out.println("No staff members found");
-        else populateTable();
+        if (staffMembers.isEmpty()) {
+            System.out.println("No staff members found");
+        } else {
+            staffMember_table.getItems().clear();
+            staffMember_table.getItems().addAll(staffMembers.values());
+        }
     }
 
     /**
      * Create and populate table rows and columns
      */
-    private void populateTable() {
-        TableColumn<StaffMember, String> column1 = new TableColumn<>("ID");
-        TableColumn<StaffMember, String> column2 = new TableColumn<>("Name");
-        TableColumn<StaffMember, String> column3 = new TableColumn<>("Contract Type");
-        TableColumn<StaffMember, String> column4 = new TableColumn<>("Subject Area");
-        TableColumn<StaffMember, String> column5 = new TableColumn<>("Line Manager");
-        TableColumn<StaffMember, String> column6 = new TableColumn<>("Total Workload");
+    private void initializeTableColumns() {
+        idColumn.setCellValueFactory(new PropertyValueFactory<>("id"));
+        nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
+        contractTypeColumn.setCellValueFactory(new PropertyValueFactory<>("contractType"));
+        subjectAreaColumn.setCellValueFactory(new PropertyValueFactory<>("subjectArea"));
+        lineManagerColumn.setCellValueFactory(new PropertyValueFactory<>("lineManager"));
+        totalWorkloadColumn.setCellValueFactory(new PropertyValueFactory<>("totalWorkload"));
 
-        column1.setCellValueFactory(new PropertyValueFactory<>("id"));
-        column2.setCellValueFactory(new PropertyValueFactory<>("name"));
-        column3.setCellValueFactory(new PropertyValueFactory<>("contractType"));
-        column4.setCellValueFactory(new PropertyValueFactory<>("subjectArea"));
-        column5.setCellValueFactory(new PropertyValueFactory<>("lineManager"));
-        column6.setCellValueFactory(new PropertyValueFactory<>("totalWorkload"));
+        addActionButtons();
+    }
 
-        staffMember_table.getColumns().addAll(column1, column2, column3, column4, column5, column6);
-        for (StaffMember staffMember : staffMembers.values()) {
-            staffMember_table.getItems().add(staffMember);
-        }
+    /**
+     * A function to add edit and delete action buttons against each row
+     */
+    // Reference: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view - START
+    private void addActionButtons() {
+        Callback<TableColumn<StaffMember, Void>, TableCell<StaffMember, Void>> cellFactory = param -> new TableCell<StaffMember, Void>() {
+            private final Button editButton = new Button("Edit");
+            private final Button deleteButton = new Button("Delete");
+
+            {
+                editButton.setOnAction(e -> {
+                    StaffMember staffMember = getTableView().getItems().get(getIndex());
+                    handleEditAction(staffMember);
+                });
+
+                deleteButton.getStyleClass().add("deleteBtn");
+                deleteButton.setOnAction(e -> {
+                    StaffMember staffMember = getTableView().getItems().get(getIndex());
+                    handleDeleteAction(staffMember);
+                });
+
+                HBox buttons = new HBox(5, editButton, deleteButton);
+                setGraphic(buttons);
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) setGraphic(null);
+                else setGraphic(new HBox(5, editButton, deleteButton));
+            }
+        };
+
+        actionColumn.setCellFactory(cellFactory);
+    }
+    // Reference: https://stackoverflow.com/questions/29489366/how-to-add-button-in-javafx-table-view - END
+
+
+    /**
+     * Function to handle edit button click for staff member
+     * @param staffMember the staff member
+     */
+    private void handleEditAction(StaffMember staffMember) {
+        ViewFactoryModel.getInstance().getViewFactory().setStaffMember(staffMember);
+        ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set("EditStaffMember");
+    }
+
+    /**
+     * Function to handle delete button click for staff member
+     * @param staffMember the staff member
+     */
+    private void handleDeleteAction(StaffMember staffMember) {
+        staffMember_table.getItems().remove(staffMember);
+        dutyService.removeAllDutiesAgainstStaffMember(staffMember.getId());
+        staffService.removeStaffMember(staffMember.getId());
+    }
+
+    /**
+     * Function to handle delete all staff members
+     */
+    private void handleDeleteAllAction() {
+        staffMember_table.getItems().clear();
+        dutyService.removeAllDuties();
+        staffService.removeAllStaffMembers();
     }
 
     /**
@@ -75,6 +184,7 @@ public class ViewStaffMembers implements Initializable {
      */
     private void searchQuery() {
         String query = search_bar.getText().toLowerCase();
+        staffMember_table.getItems().clear();
         if (!query.isEmpty()) {
             staffMember_table.getItems().clear();
             for (StaffMember staffMember : staffMembers.values()) {
@@ -83,7 +193,7 @@ public class ViewStaffMembers implements Initializable {
                 }
             }
         } else {
-            readFromFile();
+            staffMember_table.getItems().addAll(staffMembers.values());
         }
     }
 }

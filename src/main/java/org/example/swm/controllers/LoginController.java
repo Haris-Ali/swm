@@ -14,11 +14,29 @@ import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.util.ResourceBundle;
 
+/**
+ * The type Login controller.
+ */
 public class LoginController implements Initializable {
+    /**
+     * The Username field.
+     */
     public TextField username_field;
+    /**
+     * The Password field.
+     */
     public PasswordField password_field;
+    /**
+     * The Login button.
+     */
     public Button login_button;
+    /**
+     * The Error label.
+     */
     public Label error_label;
+    /**
+     * The Success label.
+     */
     public Label success_label;
 
 
@@ -27,6 +45,9 @@ public class LoginController implements Initializable {
         login_button.setOnAction(e -> login());
     }
 
+    /**
+     * Function to handle the login functionality
+     */
     public void login() {
         String username = username_field.getText();
         String password = password_field.getText();

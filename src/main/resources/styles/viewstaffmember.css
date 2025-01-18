@@ -15,3 +15,7 @@ Button {
     -fx-pref-height: 30;
     -fx-font-size: 1.2em;
 }
+
+.deleteBtn {
+    -fx-background-color: #F00;
+}

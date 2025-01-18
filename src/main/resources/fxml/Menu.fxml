@@ -14,12 +14,8 @@
         <VBox layoutY="80.0" prefHeight="400.0" prefWidth="160.0" styleClass="menu-container" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="100.0">
             <Button fx:id="addSM_button" mnemonicParsing="false" text="Add Staff Member" />
             <Button fx:id="viewSM_button" mnemonicParsing="false" text="View Staff Member(s)" />
-            <Button fx:id="editSM_button" mnemonicParsing="false" text="Edit Staff Member(s)" />
-            <Button fx:id="deleteSM_button" mnemonicParsing="false" text="Delete Staff Member(s)" />
             <Button fx:id="addDuty_button" mnemonicParsing="false" text="Add Duty" />
             <Button fx:id="viewDuty_button" mnemonicParsing="false" text="View Duty/Duties" />
-            <Button fx:id="editDuty_button" mnemonicParsing="false" text="Edit Duty" />
-            <Button fx:id="deleteDuty_button" mnemonicParsing="false" text="Delete Duty/Duties" />
             <Button fx:id="viewWorkload_button" mnemonicParsing="false" text="View Workload" />
             <Line endX="150.0" />
             <Button fx:id="logout_button" mnemonicParsing="false" styleClass="alt-menu-button" text="Logout" />

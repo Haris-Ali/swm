@@ -7,16 +7,33 @@ import org.example.swm.models.ViewFactoryModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * The type Menu controller.
+ */
 public class MenuController implements Initializable {
+    /**
+     * The Add sm button.
+     */
     public Button addSM_button;
+    /**
+     * The View sm button.
+     */
     public Button viewSM_button;
-    public Button editSM_button;
-    public Button deleteSM_button;
+    /**
+     * The Add duty button.
+     */
     public Button addDuty_button;
+    /**
+     * The View duty button.
+     */
     public Button viewDuty_button;
-    public Button editDuty_button;
-    public Button deleteDuty_button;
+    /**
+     * The View workload button.
+     */
     public Button viewWorkload_button;
+    /**
+     * The Logout button.
+     */
     public Button logout_button;
 
     @Override
@@ -24,12 +41,18 @@ public class MenuController implements Initializable {
         addListeners();
     }
 
+    /**
+     * A function to attach click listeners to menu buttons
+     */
     private void addListeners() {
         addSM_button.setOnAction(e -> changeView("AddStaffMember"));
         viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
-        editSM_button.setOnAction(e -> changeView("EditStaffMember"));
     }
 
+    /**
+     * Function to handle view change on button click
+     * @param viewName the name of the new view
+     */
     private void changeView(String viewName) {
         ViewFactoryModel.getInstance().getViewFactory().getSelectedMenuItem().set(viewName);
     }

@@ -103,6 +103,17 @@ public class DutyService {
     }
 
     /**
+     * A function that takes staffId and checks if associated duty file exists or not
+     * @param staffId the id of the staff member
+     * @return boolean key to represent if duty file exists
+     */
+    public boolean isDutyFileCreated(int staffId) {
+        String filePath = DATA_DIRECTORY_PATH + "/" + DUTY_DIRECTORY_PATH + "/" + "duties_staff_" + staffId + ".dat";
+        File dutyFile = new File(filePath);
+        return dutyFile.exists();
+    }
+
+    /**
      * Add duty against staff member.
      * Generates dynamic file path based on staff member id
      *
@@ -170,10 +181,12 @@ public class DutyService {
      * @param duty   the duty
      */
     public void removeDuty(int staffId, Duty duty) {
-        String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
-        dutiesHashMap = readFromFile(dutyFilePath, staffId);
-        dutiesHashMap.remove(duty.getId());
-        writeToFile(dutyFilePath, staffId);
+        if (isDutyFileCreated(staffId)) {
+            String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
+            dutiesHashMap = readFromFile(dutyFilePath, staffId);
+            dutiesHashMap.remove(duty.getId());
+            writeToFile(dutyFilePath, staffId);
+        }
     }
 
     /**
@@ -182,9 +195,11 @@ public class DutyService {
      * @param staffId the staff member id
      */
     public void removeAllDutiesAgainstStaffMember(int staffId) {
-        String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
-        File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource(dutyFilePath)).getFile());
-        file.delete();
+        if (isDutyFileCreated(staffId)) {
+            String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
+            File file = new File(Objects.requireNonNull(getClass().getClassLoader().getResource(dutyFilePath)).getFile());
+            file.delete();
+        }
     }
 
     /**

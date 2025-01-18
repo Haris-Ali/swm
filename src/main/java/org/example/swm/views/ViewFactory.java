@@ -2,15 +2,16 @@ package org.example.swm.views;
 
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import org.example.swm.controllers.DashboardController;
+import org.example.swm.models.StaffMember;
 
 public class ViewFactory {
     private final StringProperty selectedMenuItem;
+    private StaffMember staffMember;
     private AnchorPane addStaffMemberView;
     private AnchorPane viewStaffMemberView;
     private AnchorPane editStaffMemberView;
@@ -21,6 +22,15 @@ public class ViewFactory {
 
     public StringProperty getSelectedMenuItem() {
         return selectedMenuItem;
+    }
+
+    public void setStaffMember(StaffMember staffMember) {
+        System.out.println("Updating staffMember in ViewFactory: " + staffMember.getName());
+        this.staffMember = staffMember;
+    }
+
+    public StaffMember getStaffMember() {
+        return staffMember;
     }
 
     public AnchorPane getAddStaffMemberView() {
@@ -46,12 +56,10 @@ public class ViewFactory {
     }
 
     public AnchorPane getEditStaffMemberView() {
-        if (editStaffMemberView == null) {
-            try {
-                editStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/EditStaffMember.fxml")).load();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        try {
+            editStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/EditStaffMember.fxml")).load();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return editStaffMemberView;
     }
