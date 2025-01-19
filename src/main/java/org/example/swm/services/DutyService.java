@@ -225,4 +225,13 @@ public class DutyService {
             System.out.println("Error while removing all duties: " + e.getMessage());
         }
     }
+
+    /**
+     * Returns total duties count
+     * @return the count of total duties
+     */
+    public int getTotalDutiesCount() {
+        HashMap<Integer, Duty> duties = getAllDuties();
+        return duties.size();
+    }
 }

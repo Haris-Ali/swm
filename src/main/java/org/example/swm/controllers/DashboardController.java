@@ -18,13 +18,14 @@ public class DashboardController implements Initializable {
                 .getSelectedMenuItem()
                 .addListener((observableValue, prev, next) -> {
                     switch (next) {
+                        case "AddStaffMember" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddStaffMemberView());
                         case "ViewStaffMembers" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewStaffMemberView());
                         case "ViewStaffMember" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewStaffMemberDetailsView());
                         case "EditStaffMember" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getEditStaffMemberView());
                         case "AddDuty" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddDutyView());
                         case "EditDuty" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getEditDutyView());
                         case "ViewDuties" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewDutiesView());
-                        default -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddStaffMemberView());
+                        default -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getHomeView());
                     }
                 });
     }

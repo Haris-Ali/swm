@@ -16,6 +16,12 @@
     -fx-text-fill: #213555;
 }
 
+.card-title {
+    -fx-font-size: 2em;
+    -fx-font-weight: bold;
+    -fx-text-fill: #213555;
+}
+
 .form-container {
     -fx-spacing: 5;
 }
@@ -67,4 +73,11 @@ Button {
 .editBtn {
     -fx-background-color: #E4E0E1;
     -fx-text-fill: #000;
+}
+
+.card {
+    -fx-background-color: #FFF;
+    -fx-background-radius: 15;
+    -fx-border-radius: 15;
+    -fx-padding: 15;
 }

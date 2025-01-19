@@ -1,0 +1,25 @@
+﻿Type,Activity,Description,Name,Year,Activity Duration,No. of Instances,Hours,ATSR,TS,TLR,SA,Other
+ATSR,Formal Scheduled Teaching,CSY2094 Systems Design and Development,Rishi Sunak,Trimester 1,4,12,48,48,58,0,0,0
+ATSR,Formal Scheduled Teaching,CSY3055 Natural Language Processing,Rishi Sunak,Trimester 1,4,12,48,48,58,0,0,0
+ATSR,Formal Scheduled Teaching,CSY3060P/01 Advanced AI and Applications,Rishi Sunak,Trimester 2,4,12,48,48,58,0,0,0
+ATSR,Formal Scheduled Teaching,CSY3060P/02 Advanced AI and Applications,Rishi Sunak,Trimester 2,4,12,48,48,58,0,0,0
+ATSR,Dissertation/Projects,PG,Rishi Sunak,All Year,9,5,45,45,54,0,0,0
+ATSR,Dissertation/Projects,UG,Rishi Sunak,All Year,5,4,20,20,24,0,0,0
+TLR,Module Leader,CSY2094 Systems Design and Development,Rishi Sunak,Trimester 1,16,1,16,0,0,16,0,0
+TLR,Module Leader,CSY3055 Natural Language Processing,Rishi Sunak,Trimester 1,8,1,8,0,0,8,0,0
+TLR,Module Leader,CSY3060 Advanced AI and Applications,Rishi Sunak,Trimester 2,16,1,16,0,0,16,0,0
+Other,Other duties - specify,Accreditation Preparation (BCS),Rishi Sunak,All Year,25,1,25,0,0,0,0,25
+SA,"Scholarly, Currency & Development","Scholarly, Currency & Development",Rishi Sunak,All Year,188,1,188,0,0,0,188,0
+ATSR,Formal Scheduled Teaching,CSYM025P Grp1,Boris Johnson,Trimester 1,2,13,26,26,32,0,0,0
+ATSR,Formal Scheduled Teaching,CSYM025P Grp2,Boris Johnson,Trimester 1,2,13,26,26,32,0,0,0
+ATSR,Formal Scheduled Teaching,CSYM025 - Online,Boris Johnson,Trimester 1,1,13,13,13,16,0,0,0
+ATSR,Formal Scheduled Teaching,CSYM026P ,Boris Johnson,Trimester 2,3,13,39,39,47,0,0,0
+ATSR,Dissertation/Projects,PG,Boris Johnson,All Year,9,5,45,45,54,0,0,0
+ATSR,Dissertation/Projects,UG,Boris Johnson,All Year,5,4,20,20,24,0,0,0
+TLR,Programme Leader,PL MSc Computing,Boris Johnson,All Year,70,1,70,0,0,70,0,0
+TLR,Module Leader,CSYM025,Boris Johnson,Trimester 1,8,1,8,0,0,8,0,0
+TLR,Module Leader,CSYM026 ,Boris Johnson,Trimester 2,8,1,8,0,0,8,0,0
+TLR,Deputy Head of Subject,DHoS,Boris Johnson,All Year,150,1,150,0,0,150,0,0
+TLR,T&R Contract,T&R Contract,Boris Johnson,All Year,220,1,220,0,0,220,0,0
+Other,Other duties - specify,Exam Boards,Boris Johnson,All Year,3,2,6,0,0,0,0,6
+SA,"Scholarly, Currency & Development","Scholarly, Currency & Development",Boris Johnson,All Year,188,1,188,0,0,0,188,0

@@ -10,10 +10,13 @@ import org.example.swm.controllers.DashboardController;
 import org.example.swm.models.Duty;
 import org.example.swm.models.StaffMember;
 
+import java.io.IOException;
+
 public class ViewFactory {
     private final StringProperty selectedMenuItem;
     private StaffMember staffMember;
     private Duty duty;
+    private AnchorPane homeView;
     private AnchorPane addStaffMemberView;
     private AnchorPane viewStaffMemberView;
     private AnchorPane editStaffMemberView;
@@ -43,6 +46,15 @@ public class ViewFactory {
     }
 
     public Duty getDuty() { return this.duty; }
+
+    public AnchorPane getHomeView() {
+        try {
+            homeView = new FXMLLoader(getClass().getResource("/fxml/Home.fxml")).load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return homeView;
+    }
 
     public AnchorPane getAddStaffMemberView() {
         try {

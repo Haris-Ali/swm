@@ -99,7 +99,6 @@ public class StaffService {
      * @param member the member
      */
     public void addStaffMember(StaffMember member) {
-        System.out.println("Staff member hashmap before add: " + staffMembersHashMap);
         staffMembersHashMap.put(member.getId(), member);
         writeToFile();
     }
@@ -202,5 +201,14 @@ public class StaffService {
         staffMember.setOtherWorkload(newOtherWorkload);
         staffMembersHashMap.put(staffMember.getId(), staffMember);
         writeToFile();
+    }
+
+    /**
+     * Returns total staff count
+     * @return the count of total staff
+     */
+    public int getTotalStaffCount() {
+        HashMap<Integer, StaffMember> staffMembers = readFromFile();
+        return staffMembers.size();
     }
 }

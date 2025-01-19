@@ -13,6 +13,10 @@ import java.util.ResourceBundle;
  */
 public class MenuController implements Initializable {
     /**
+     * The home button
+     */
+    public Button home_button;
+    /**
      * The Add sm button.
      */
     public Button addSM_button;
@@ -38,6 +42,7 @@ public class MenuController implements Initializable {
      * A function to attach click listeners to menu buttons
      */
     private void addListeners() {
+        home_button.setOnAction(event -> changeView("Home"));
         addSM_button.setOnAction(e -> changeView("AddStaffMember"));
         viewSM_button.setOnAction(e -> changeView("ViewStaffMembers"));
         viewDuty_button.setOnAction(e -> changeView("ViewDuties"));
