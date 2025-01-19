@@ -92,6 +92,11 @@ public class ViewStaffMember implements Initializable {
      */
     public Button deleteAllDuties_button;
     public Label total_workload_label;
+    public Label total_atsrworkload_label;
+    public Label total_tsworkload_label;
+    public Label total_tlrworkload_label;
+    public Label total_saworkload_label;
+    public Label total_otherworkload_label;
     /**
      * The Staff service.
      */
@@ -163,8 +168,12 @@ public class ViewStaffMember implements Initializable {
         sa_column.setCellValueFactory(new PropertyValueFactory<>("saHours"));
         others_column.setCellValueFactory(new PropertyValueFactory<>("otherHours"));
 
-        int totalWorkload = sm.getTotalWorkload();
-        total_workload_label.setText("Total Workload: " + totalWorkload);
+        total_atsrworkload_label.setText("Total ATSR Workload: " + sm.getAtsrWorkload());
+        total_tsworkload_label.setText("Total TS Workload: " + sm.getTsWorkload());
+        total_tlrworkload_label.setText("Total TLR Workload: " + sm.getTlrWorkload());
+        total_saworkload_label.setText("Total SA Workload: " + sm.getSaWorkload());
+        total_otherworkload_label.setText("Total Other Workload: " + sm.getOtherWorkload());
+        total_workload_label.setText("Total Workload: " + sm.getTotalWorkload());
 
         addActionButtons();
     }

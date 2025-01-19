@@ -99,6 +99,7 @@ public class StaffService {
      * @param member the member
      */
     public void addStaffMember(StaffMember member) {
+        System.out.println("Staff member hashmap before add: " + staffMembersHashMap);
         staffMembersHashMap.put(member.getId(), member);
         writeToFile();
     }
@@ -139,6 +140,66 @@ public class StaffService {
     public void updateTotalWorkload(int staffId, int newTotalWorkload) {
         StaffMember staffMember = staffMembersHashMap.get(staffId);
         staffMember.setTotalWorkload(newTotalWorkload);
+        staffMembersHashMap.put(staffMember.getId(), staffMember);
+        writeToFile();
+    }
+
+    /**
+     * Update atsr workload of staff member
+     * @param staffId the staff member id
+     * @param newAtsrWorkload the new atsr workload
+     */
+    public void updateAtsrWorkload(int staffId, int newAtsrWorkload) {
+        StaffMember staffMember = staffMembersHashMap.get(staffId);
+        staffMember.setAtsrWorkload(newAtsrWorkload);
+        staffMembersHashMap.put(staffMember.getId(), staffMember);
+        writeToFile();
+    }
+
+    /**
+     * Update ts workload of staff member
+     * @param staffId the staff member id
+     * @param newTsWorkload the new ts workload
+     */
+    public void updateTsWorkload(int staffId, int newTsWorkload) {
+        StaffMember staffMember = staffMembersHashMap.get(staffId);
+        staffMember.setTsWorkload(newTsWorkload);
+        staffMembersHashMap.put(staffMember.getId(), staffMember);
+        writeToFile();
+    }
+
+    /**
+     * Update tlr workload of staff member
+     * @param staffId the staff member id
+     * @param newTlrWorkload the new tlr workload
+     */
+    public void updateTlrWorkload(int staffId, int newTlrWorkload) {
+        StaffMember staffMember = staffMembersHashMap.get(staffId);
+        staffMember.setTlrWorkload(newTlrWorkload);
+        staffMembersHashMap.put(staffMember.getId(), staffMember);
+        writeToFile();
+    }
+
+    /**
+     * Update sa workload of staff member
+     * @param staffId the staff member id
+     * @param newSaWorkload the new sa workload
+     */
+    public void updateSaWorkload(int staffId, int newSaWorkload) {
+        StaffMember staffMember = staffMembersHashMap.get(staffId);
+        staffMember.setSaWorkload(newSaWorkload);
+        staffMembersHashMap.put(staffMember.getId(), staffMember);
+        writeToFile();
+    }
+
+    /**
+     * Update other workload of staff member
+     * @param staffId the staff member id
+     * @param newOtherWorkload the new other workload
+     */
+    public void updateOtherWorkload(int staffId, int newOtherWorkload) {
+        StaffMember staffMember = staffMembersHashMap.get(staffId);
+        staffMember.setOtherWorkload(newOtherWorkload);
         staffMembersHashMap.put(staffMember.getId(), staffMember);
         writeToFile();
     }

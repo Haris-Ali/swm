@@ -12,7 +12,7 @@ import java.util.Objects;
  */
 public class DutyService {
     private static final String DATA_DIRECTORY_PATH = "data";
-    private static final String DUTY_DIRECTORY_PATH = "duties"; // Path where duties will be stored
+    private static final String DUTY_DIRECTORY_PATH = "data/duties"; // Path where duties will be stored
     private HashMap<Integer, Duty> dutiesHashMap; // Duty hash map to store duties
 
     /**
@@ -87,7 +87,7 @@ public class DutyService {
      * Check and create an empty staff file
      */
     public void dutyFileExists(int staffId) {
-        String filePath = DATA_DIRECTORY_PATH + "/" + DUTY_DIRECTORY_PATH + "/" + "duties_staff_" + staffId + ".dat";
+        String filePath = DUTY_DIRECTORY_PATH + "/" + "duties_staff_" + staffId + ".dat";
         File dutyFile = new File(filePath);
         if (!dutyFile.exists()) {
             try {
@@ -108,7 +108,7 @@ public class DutyService {
      * @return boolean key to represent if duty file exists
      */
     public boolean isDutyFileCreated(int staffId) {
-        String filePath = DATA_DIRECTORY_PATH + "/" + DUTY_DIRECTORY_PATH + "/" + "duties_staff_" + staffId + ".dat";
+        String filePath = DUTY_DIRECTORY_PATH + "/" + "duties_staff_" + staffId + ".dat";
         File dutyFile = new File(filePath);
         return dutyFile.exists();
     }
@@ -121,9 +121,12 @@ public class DutyService {
      * @param duty   the duty
      */
     public void addDutyAgainstStaffMember(int staffId, Duty duty) {
+        System.out.println(duty);
         String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
         dutiesHashMap = readFromFile(dutyFilePath, staffId);
+        System.out.println("before: " + dutiesHashMap);
         dutiesHashMap.put(duty.getId(), duty);
+        System.out.println("after: " + dutiesHashMap);
         writeToFile(dutyFilePath, staffId);
     }
 
@@ -160,7 +163,7 @@ public class DutyService {
     public HashMap<Integer, Duty> getAllDuties() {
         HashMap<Integer, Duty> allDuties = new HashMap<>();
 
-        File dutiesFolder = new File(DATA_DIRECTORY_PATH, DUTY_DIRECTORY_PATH);
+        File dutiesFolder = new File(DUTY_DIRECTORY_PATH);
         for (File file : Objects.requireNonNull(dutiesFolder.listFiles())) {
             String dutyFilePath = file.getPath();
             StringBuilder number = new StringBuilder();

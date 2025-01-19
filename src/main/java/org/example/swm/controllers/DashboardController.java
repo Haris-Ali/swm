@@ -24,7 +24,6 @@ public class DashboardController implements Initializable {
                         case "AddDuty" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddDutyView());
                         case "EditDuty" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getEditDutyView());
                         case "ViewDuties" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewDutiesView());
-                        case "ViewWorkload" -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getViewWorkloadView());
                         default -> dashboard_parent.setCenter(ViewFactoryModel.getInstance().getViewFactory().getAddStaffMemberView());
                     }
                 });

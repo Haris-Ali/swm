@@ -1,7 +1,9 @@
 package org.example.swm.models;
 
-import java.io.Serial;
 import java.io.Serializable;
+
+import java.io.*;
+import java.util.Objects;
 
 /**
  * Represents an id generator helper class in the system.
@@ -10,35 +12,50 @@ import java.io.Serializable;
  */
 //<-***** https://stackoverflow.com/questions/15029445/java-static-variable-for-auto-increment-userid-objectoutputstream - START
 public class IdGenerator implements Serializable {
-    /**
-     * The class for staff member id.
-     */
-    public static class StaffMemberId {
-        private static int nextId = 1;
+    private static final long serialVersionUID = 1L;
+    private static final String FILE_PATH = "id_generator_state.dat";
 
-        /**
-         * Next id int.
-         *
-         * @return the int
-         */
-        public static int nextId() {
-            return nextId++;
+    private static IdGenerator instance;
+
+    private int staffMemberNextId = 1;
+    private int dutyNextId = 1;
+
+    private IdGenerator() {}
+
+    public static IdGenerator getInstance() {
+        if (instance == null) {
+            instance = loadState();
         }
+        return instance;
     }
 
     /**
-     * The class for duty id.
+     * The method for incrementing staff member id.
      */
-    public static class DutyId {
-        private static int nextId = 1;
+    public int getNextStaffMemberId() {
+        return staffMemberNextId++;
+    }
 
-        /**
-         * Next id int.
-         *
-         * @return the int
-         */
-        public static int nextId() {
-            return nextId++;
+    /**
+     * The method for incrementing duty id.
+     */
+    public int getNextDutyId() {
+        return dutyNextId++;
+    }
+
+    public static void saveState() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(FILE_PATH))) {
+            oos.writeObject(getInstance());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static IdGenerator loadState() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(FILE_PATH))) {
+            return (IdGenerator) ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            return new IdGenerator(); // Return a new instance if file is not found or an error occurs
         }
     }
 }

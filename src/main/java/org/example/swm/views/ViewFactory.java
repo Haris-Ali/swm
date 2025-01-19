@@ -21,7 +21,6 @@ public class ViewFactory {
     private AnchorPane addDutyView;
     private AnchorPane editDutyView;
     private AnchorPane viewDutyDetailsView;
-    private AnchorPane viewWorkloadView;
 
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
@@ -106,15 +105,6 @@ public class ViewFactory {
             e.printStackTrace();
         }
         return viewDutyDetailsView;
-    }
-
-    public AnchorPane getViewWorkloadView() {
-        try {
-            viewWorkloadView = new FXMLLoader(getClass().getResource("/fxml/workload/ViewWorkload.fxml")).load();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return viewWorkloadView;
     }
 
     public void showLoginWindow() {

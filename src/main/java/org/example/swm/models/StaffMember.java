@@ -3,6 +3,7 @@ package org.example.swm.models;
 import java.io.Serial;
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.UUID;
 
 /**
  * Represents a staff member in the system.
@@ -22,6 +23,7 @@ public class StaffMember implements Serializable {
     private int totalWorkload; // Total workload of staff member calculated based on duties
     private int atsrWorkload;
     private int tsWorkload;
+    private int tlrWorkload;
     private int saWorkload;
     private int otherWorkload;
 
@@ -34,7 +36,7 @@ public class StaffMember implements Serializable {
      * @param lineManager  Line manager of staff member
      */
     public StaffMember(String name, Double contractType, String subjectArea, String lineManager) {
-        this.id = IdGenerator.StaffMemberId.nextId();
+        this.id = IdGenerator.getInstance().getNextStaffMemberId();
         this.name = name;
         this.contractType = contractType;
         this.subjectArea = subjectArea;
@@ -42,6 +44,7 @@ public class StaffMember implements Serializable {
         this.totalWorkload = 0;
         this.atsrWorkload = 0;
         this.tsWorkload = 0;
+        this.tlrWorkload = 0;
         this.saWorkload = 0;
         this.otherWorkload = 0;
     }
@@ -102,6 +105,12 @@ public class StaffMember implements Serializable {
      * @return the ts workload
      */
     public int getTsWorkload() { return tsWorkload; }
+
+    /**
+     * Gets tlr workload
+     * @return the tlr workload
+     */
+    public int getTlrWorkload() { return tlrWorkload; }
 
     /**
      * Gets sa workload.
@@ -167,6 +176,12 @@ public class StaffMember implements Serializable {
      * @param tsWorkload the ts workload
      */
     public void setTsWorkload(int tsWorkload) { this.tsWorkload = tsWorkload; }
+
+    /**
+     * Sets tlr workload
+     * @param tlrWorkload the tlr workload
+     */
+    public void setTlrWorkload(int tlrWorkload) { this.tlrWorkload = tlrWorkload; }
 
     /**
      * Sets sa workload.

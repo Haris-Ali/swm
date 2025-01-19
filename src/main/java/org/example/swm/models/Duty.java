@@ -37,7 +37,7 @@ public class Duty implements Serializable {
      */
 
     public Duty(int staffId, String dutyType, String activityType, String description, String weeks, int duration, int instances) {
-        this.id = IdGenerator.DutyId.nextId();
+        this.id = IdGenerator.getInstance().getNextDutyId();
         this.staffId = staffId;
         this.dutyType = dutyType;
         this.activityType = activityType;
@@ -227,7 +227,6 @@ public class Duty implements Serializable {
         for (HourCategory hourCategory : hourCategories) {
             total += hourCategory.getHours();
         }
-        System.out.println("Total workload for this duty is: " + total);
         return total;
     }
 

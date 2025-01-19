@@ -91,6 +91,7 @@ public class ViewStaffMembers implements Initializable {
      */
     private void readFromFile() {
         staffMembers = staffService.readFromFile();
+        System.out.println(staffMembers.toString());
         if (staffMembers.isEmpty()) {
             System.out.println("No staff members found");
         } else {
@@ -110,6 +111,15 @@ public class ViewStaffMembers implements Initializable {
         lineManagerColumn.setCellValueFactory(new PropertyValueFactory<>("lineManager"));
         totalWorkloadColumn.setCellValueFactory(new PropertyValueFactory<>("totalWorkload"));
 
+        contractTypeColumn.setCellFactory(cell -> new TableCell<StaffMember, Double>() {
+            @Override
+            protected void updateItem(Double contractType, boolean empty) {
+                super.updateItem(contractType, empty);
+                if (empty || contractType == null) { setText(null); }
+                else setText(contractType == 1.0 ? "Full time" : "Part time");
+            }
+        });
+
         addActionButtons();
     }
 
@@ -121,7 +131,6 @@ public class ViewStaffMembers implements Initializable {
         Callback<TableColumn<StaffMember, Void>, TableCell<StaffMember, Void>> cellFactory = param -> new TableCell<>() {
             private final Button viewStaffMemberButton = new Button("View Details");
             private final Button editButton = new Button("Edit");
-            private final Button viewWorkloadButton = new Button("View Workload");
             private final Button deleteButton = new Button("Delete");
 
             {
@@ -136,18 +145,13 @@ public class ViewStaffMembers implements Initializable {
                     handleStaffAction(staffMember, "EditStaffMember");
                 });
 
-                viewWorkloadButton.setOnAction(e -> {
-                    StaffMember staffMember = getTableView().getItems().get(getIndex());
-                    handleStaffAction(staffMember, "ViewWorkload");
-                });
-
                 deleteButton.getStyleClass().add("deleteBtn");
                 deleteButton.setOnAction(e -> {
                     StaffMember staffMember = getTableView().getItems().get(getIndex());
                     handleDeleteAction(staffMember);
                 });
 
-                HBox buttons = new HBox(5, viewStaffMemberButton, editButton, viewWorkloadButton, deleteButton);
+                HBox buttons = new HBox(5, viewStaffMemberButton, editButton, deleteButton);
                 setGraphic(buttons);
             }
 
@@ -155,7 +159,7 @@ public class ViewStaffMembers implements Initializable {
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) setGraphic(null);
-                else setGraphic(new HBox(5, viewStaffMemberButton, editButton, viewWorkloadButton, deleteButton));
+                else setGraphic(new HBox(5, viewStaffMemberButton, editButton, deleteButton));
             }
         };
 

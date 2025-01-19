@@ -2,6 +2,7 @@ package org.example.swm;
 
 import javafx.application.Application;
 import javafx.stage.Stage;
+import org.example.swm.models.IdGenerator;
 import org.example.swm.models.ViewFactoryModel;
 
 /**
@@ -17,4 +18,14 @@ public class App extends Application {
     public void start(Stage stage) {
         ViewFactoryModel.getInstance().getViewFactory().showLoginWindow();
     }
+
+    /**
+     * Stop method for saving id generator state
+     */
+    @Override
+    public void stop() {
+        IdGenerator.saveState();
+    }
+
+
 }

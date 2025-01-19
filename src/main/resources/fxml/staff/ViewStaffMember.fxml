@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1200.0" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.swm.controllers.staff.ViewStaffMember">
+<AnchorPane prefHeight="800.0" prefWidth="1200.0" stylesheets="@../../styles/styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.example.swm.controllers.staff.ViewStaffMember">
    <children>
       <Label layoutX="14.0" layoutY="14.0" styleClass="title" text="STAFF MEMBER DETAILS" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="20.0" />
       <HBox layoutX="20.0" layoutY="63.0" prefWidth="760.0" spacing="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0">
@@ -61,6 +61,15 @@
       <Button fx:id="deleteAllDuties_button" layoutX="717.0" layoutY="215.0" mnemonicParsing="false" text="Delete All Duties" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="220.0" />
       <Button fx:id="edit_button" layoutX="1066.0" layoutY="20.0" mnemonicParsing="false" text="Edit" AnchorPane.topAnchor="20.0" />
       <Button fx:id="delete_button" layoutX="677.0" layoutY="25.0" mnemonicParsing="false" text="Delete" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
-      <Label fx:id="total_workload_label" layoutX="1141.0" layoutY="496.0" styleClass="subtitle" text="Total Workload: " AnchorPane.rightAnchor="20.0" />
+      <VBox alignment="TOP_RIGHT" layoutX="854.0" layoutY="486.0" prefHeight="200.0" prefWidth="300.0" spacing="5.0" AnchorPane.rightAnchor="20.0">
+         <children>
+            <Label fx:id="total_atsrworkload_label" styleClass="heading" text="Total ATSR Workload:" />
+            <Label fx:id="total_tsworkload_label" styleClass="heading" text="Total TS Workload:" />
+            <Label fx:id="total_tlrworkload_label" styleClass="heading" text="Total TLR Workload:" />
+            <Label fx:id="total_saworkload_label" styleClass="heading" text="Total SA Workload:" />
+            <Label fx:id="total_otherworkload_label" styleClass="heading" text="Total Others Workload:" />
+            <Label fx:id="total_workload_label" styleClass="subtitle" text="Total Workload: " />
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
