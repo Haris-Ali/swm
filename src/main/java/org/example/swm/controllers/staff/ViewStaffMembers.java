@@ -121,6 +121,7 @@ public class ViewStaffMembers implements Initializable {
         Callback<TableColumn<StaffMember, Void>, TableCell<StaffMember, Void>> cellFactory = param -> new TableCell<>() {
             private final Button viewStaffMemberButton = new Button("View Details");
             private final Button editButton = new Button("Edit");
+            private final Button viewWorkloadButton = new Button("View Workload");
             private final Button deleteButton = new Button("Delete");
 
             {
@@ -135,13 +136,18 @@ public class ViewStaffMembers implements Initializable {
                     handleStaffAction(staffMember, "EditStaffMember");
                 });
 
+                viewWorkloadButton.setOnAction(e -> {
+                    StaffMember staffMember = getTableView().getItems().get(getIndex());
+                    handleStaffAction(staffMember, "ViewWorkload");
+                });
+
                 deleteButton.getStyleClass().add("deleteBtn");
                 deleteButton.setOnAction(e -> {
                     StaffMember staffMember = getTableView().getItems().get(getIndex());
                     handleDeleteAction(staffMember);
                 });
 
-                HBox buttons = new HBox(5, viewStaffMemberButton, editButton, deleteButton);
+                HBox buttons = new HBox(5, viewStaffMemberButton, editButton, viewWorkloadButton, deleteButton);
                 setGraphic(buttons);
             }
 
@@ -149,7 +155,7 @@ public class ViewStaffMembers implements Initializable {
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty) setGraphic(null);
-                else setGraphic(new HBox(5, viewStaffMemberButton, editButton, deleteButton));
+                else setGraphic(new HBox(5, viewStaffMemberButton, editButton, viewWorkloadButton, deleteButton));
             }
         };
 

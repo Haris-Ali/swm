@@ -25,10 +25,6 @@ public class MenuController implements Initializable {
      */
     public Button viewDuty_button;
     /**
-     * The View workload button.
-     */
-    public Button viewWorkload_button;
-    /**
      * The Logout button.
      */
     public Button logout_button;

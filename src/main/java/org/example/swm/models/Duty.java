@@ -182,6 +182,26 @@ public class Duty implements Serializable {
         return categories;
     }
 
+    public int getAtsrHours() {
+        return hourCategories.get(0).getHours();
+    }
+
+    public int getTsHours() {
+        return hourCategories.get(1).getHours();
+    }
+
+    public int getTlrHours() {
+        return hourCategories.get(2).getHours();
+    }
+
+    public int getSaHours() {
+        return hourCategories.get(3).getHours();
+    }
+
+    public int getOtherHours() {
+        return hourCategories.get(4).getHours();
+    }
+
     /**
      * Calculate hour categories.
      */

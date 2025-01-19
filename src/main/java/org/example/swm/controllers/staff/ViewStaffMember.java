@@ -68,6 +68,13 @@ public class ViewStaffMember implements Initializable {
      * The Action column.
      */
     public TableColumn actionColumn;
+    public TableColumn hours_column;
+    public TableColumn hourBreakdown_column;
+    public TableColumn atsr_column;
+    public TableColumn ts_column;
+    public TableColumn tlr_column;
+    public TableColumn sa_column;
+    public TableColumn others_column;
     /**
      * The Add duty button.
      */
@@ -84,6 +91,7 @@ public class ViewStaffMember implements Initializable {
      * The Delete all duties button.
      */
     public Button deleteAllDuties_button;
+    public Label total_workload_label;
     /**
      * The Staff service.
      */
@@ -148,6 +156,15 @@ public class ViewStaffMember implements Initializable {
         weeksColumn.setCellValueFactory(new PropertyValueFactory<>("weeks"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         instancesColumn.setCellValueFactory(new PropertyValueFactory<>("instances"));
+        hours_column.setCellValueFactory(new PropertyValueFactory<>("hours"));
+        atsr_column.setCellValueFactory(new PropertyValueFactory<>("atsrHours"));
+        ts_column.setCellValueFactory(new PropertyValueFactory<>("tsHours"));
+        tlr_column.setCellValueFactory(new PropertyValueFactory<>("tlrHours"));
+        sa_column.setCellValueFactory(new PropertyValueFactory<>("saHours"));
+        others_column.setCellValueFactory(new PropertyValueFactory<>("otherHours"));
+
+        int totalWorkload = sm.getTotalWorkload();
+        total_workload_label.setText("Total Workload: " + totalWorkload);
 
         addActionButtons();
     }

@@ -1,13 +1,19 @@
 .title {
     -fx-font-size: 1.5em;
     -fx-font-weight: bold;
-    -fx-fill: #213555;
+    -fx-text-fill: #213555;
 }
 
 .subtitle {
     -fx-font-size: 1.3em;
     -fx-font-weight: bold;
-    -fx-fill: #213555;
+    -fx-text-fill: #213555;
+}
+
+.heading {
+    -fx-font-size: 1.1em;
+    -fx-font-weight: bold;
+    -fx-text-font: #213555;
 }
 
 .form-container {
@@ -17,7 +23,7 @@
 .form-container Label {
     -fx-font-size: 1.1em;
     -fx-font-weight: bold;
-    -fx-fill: #213555;
+    -fx-text-fill: #213555;
 }
 
 .contract-type-selector {

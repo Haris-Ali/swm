@@ -15,7 +15,6 @@
             <Button fx:id="addSM_button" mnemonicParsing="false" text="Add Staff Member" />
             <Button fx:id="viewSM_button" mnemonicParsing="false" text="View Staff Members" />
             <Button fx:id="viewDuty_button" mnemonicParsing="false" text="View Duties" />
-            <Button fx:id="viewWorkload_button" mnemonicParsing="false" text="View Workload" />
             <Line endX="150.0" />
             <Button fx:id="logout_button" mnemonicParsing="false" styleClass="alt-menu-button" text="Logout" />
         </VBox>
