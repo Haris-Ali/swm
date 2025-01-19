@@ -12,6 +12,7 @@ import java.util.Objects;
  */
 //<-***** https://stackoverflow.com/questions/15029445/java-static-variable-for-auto-increment-userid-objectoutputstream - START
 public class IdGenerator implements Serializable {
+    @Serial
     private static final long serialVersionUID = 1L;
     private static final String FILE_PATH = "id_generator_state.dat";
 
@@ -33,14 +34,18 @@ public class IdGenerator implements Serializable {
      * The method for incrementing staff member id.
      */
     public int getNextStaffMemberId() {
-        return staffMemberNextId++;
+        int id = staffMemberNextId++;
+        saveState();
+        return id;
     }
 
     /**
      * The method for incrementing duty id.
      */
     public int getNextDutyId() {
-        return dutyNextId++;
+        int id = dutyNextId++;
+        saveState();
+        return id;
     }
 
     public static void saveState() {

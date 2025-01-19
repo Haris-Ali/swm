@@ -121,12 +121,9 @@ public class DutyService {
      * @param duty   the duty
      */
     public void addDutyAgainstStaffMember(int staffId, Duty duty) {
-        System.out.println(duty);
         String dutyFilePath = "data/duties/duties_staff_" + staffId + ".dat";
         dutiesHashMap = readFromFile(dutyFilePath, staffId);
-        System.out.println("before: " + dutiesHashMap);
         dutiesHashMap.put(duty.getId(), duty);
-        System.out.println("after: " + dutiesHashMap);
         writeToFile(dutyFilePath, staffId);
     }
 
