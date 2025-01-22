@@ -100,6 +100,10 @@ public class AddDuty implements Initializable {
         success_label.setText("Duty added successfully!");
     }
 
+    /**
+     * Function to create a new duty
+     * @return the new duty object
+     */
     private Duty createDutyFromInput() {
         return new Duty(
                 staffMember.getId(),
@@ -112,11 +116,18 @@ public class AddDuty implements Initializable {
         );
     }
 
+    /**
+     * Function to check if workload exceeds 1570 or not
+     * @return true/false to indicate if workload exceeds or not
+     */
     private boolean isWorkloadExceeding(Duty duty) {
         int totalWorkload = staffMember.getTotalWorkload();
         return totalWorkload + duty.getWorkloadForDuty() > 1570;
     }
 
+    /**
+     * Function to update the staff member's workload values
+     */
     private void updateStaffWorkload(Duty duty) {
         staffService.updateTotalWorkload(staffMember.getId(), staffMember.getTotalWorkload() + duty.getWorkloadForDuty());
         staffService.updateAtsrWorkload(staffMember.getId(), staffMember.getAtsrWorkload() + duty.getAtsrHours());
@@ -126,6 +137,10 @@ public class AddDuty implements Initializable {
         staffService.updateOtherWorkload(staffMember.getId(), staffMember.getOtherWorkload() + duty.getOtherHours());
     }
 
+    /**
+     * Functio to validate inputs for null and number values
+     * @return true/false to indicate if form is valid or not
+     */
     private boolean isInputValid() {
         if (dutyType_field.getValue() == null || activityType_field.getValue() == null ||
                 description_field.getText().isEmpty() || week_field.getValue() == null ||
@@ -141,6 +156,9 @@ public class AddDuty implements Initializable {
         return true;
     }
 
+    /**
+     * Resets the error and success labels
+     */
     private void resetLabels() {
         error_label.setText("");
         success_label.setText("");

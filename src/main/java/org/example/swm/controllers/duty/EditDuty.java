@@ -15,14 +15,41 @@ import java.util.*;
  * The class Edit duty.
  */
 public class EditDuty implements Initializable {
+    /**
+     * The Duty type field.
+     */
     public ChoiceBox<DutyType> dutyType_field;
+    /**
+     * The Activity type field.
+     */
     public ComboBox<String> activityType_field;
+    /**
+     * The Description field.
+     */
     public TextField description_field;
+    /**
+     * The Week field.
+     */
     public ChoiceBox<String> week_field;
+    /**
+     * The Duration field.
+     */
     public TextField duration_field;
+    /**
+     * The Instances field.
+     */
     public TextField instances_field;
+    /**
+     * The Edit duty button.
+     */
     public Button edit_duty_button;
+    /**
+     * The Error label.
+     */
     public Label error_label;
+    /**
+     * The Success label.
+     */
     public Label success_label;
     /**
      * The Staff service.
@@ -130,6 +157,15 @@ public class EditDuty implements Initializable {
         success_label.setText("Duty updated successfully!");
     }
 
+    /**
+     * Function to update the duty's properties
+     * @param dutyType duty type
+     * @param activityType activity type
+     * @param description description
+     * @param weeks weeks/year
+     * @param duration duration hours in weeks
+     * @param instances instances
+     */
     private void updateDuty(String dutyType, String activityType, String description, String weeks, int duration, int instances) {
         duty.setDutyType(dutyType);
         duty.setActivityType(activityType);
@@ -141,6 +177,11 @@ public class EditDuty implements Initializable {
         duty.calculateHourCategories();
     }
 
+    /**
+     * Function to check if updated workload exceeds 1570 or not
+     * @param prevWorkload previous workload before editing duty
+     * @return true/false to indicate if workload exceeds or not
+     */
     private boolean isWorkloadExceeding(int prevWorkload) {
         int totalWorkload = staffService.getStaffMember(staffId).getTotalWorkload();
         int newWorkload = duty.getWorkloadForDuty();
@@ -151,6 +192,10 @@ public class EditDuty implements Initializable {
         return false;
     }
 
+    /**
+     * Function to update the staff member's workload values
+     * @param prevWorkload the previous workload before editing duty
+     */
     private void updateStaffWorkload(int prevWorkload) {
         StaffMember staffMember = staffService.getStaffMember(staffId);
         staffService.updateTotalWorkload(staffId, staffMember.getTotalWorkload() - prevWorkload + duty.getWorkloadForDuty());
@@ -161,6 +206,10 @@ public class EditDuty implements Initializable {
         staffService.updateOtherWorkload(staffId, staffMember.getOtherWorkload() - duty.getOtherHours());
     }
 
+    /**
+     * Functio to validate inputs for null and number values
+     * @return true/false to indicate if form is valid or not
+     */
     private boolean isInputValid() {
         if (dutyType_field.getValue() == null || activityType_field.getValue() == null ||
                 description_field.getText().isEmpty() || week_field.getValue() == null ||
@@ -176,6 +225,9 @@ public class EditDuty implements Initializable {
         return true;
     }
 
+    /**
+     * Resets the error and success labels
+     */
     private void resetLabels() {
         error_label.setText("");
         success_label.setText("");

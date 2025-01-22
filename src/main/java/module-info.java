@@ -10,6 +10,6 @@ module org.example.swm {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
 
-    opens org.example.swm to javafx.fxml;
+    opens org.example.swm.controllers to javafx.fxml;
     exports org.example.swm;
 }

@@ -25,28 +25,61 @@ public class ViewFactory {
     private AnchorPane editDutyView;
     private AnchorPane viewDutyDetailsView;
 
+    /**
+     * Instantiates a new View factory.
+     */
     public ViewFactory() {
         this.selectedMenuItem = new SimpleStringProperty("");
     }
 
+    /**
+     * Gets selected menu item.
+     *
+     * @return the selected menu item
+     */
     public StringProperty getSelectedMenuItem() {
         return selectedMenuItem;
     }
 
+    /**
+     * Sets staff member.
+     *
+     * @param staffMember the staff member
+     */
     public void setStaffMember(StaffMember staffMember) {
         this.staffMember = staffMember;
     }
 
+    /**
+     * Gets staff member.
+     *
+     * @return the staff member
+     */
     public StaffMember getStaffMember() {
         return this.staffMember;
     }
 
+    /**
+     * Sets duty.
+     *
+     * @param duty the duty
+     */
     public void setDuty(Duty duty) {
         this.duty = duty;
     }
 
+    /**
+     * Gets duty.
+     *
+     * @return the duty
+     */
     public Duty getDuty() { return this.duty; }
 
+    /**
+     * Gets home view.
+     *
+     * @return the home view
+     */
     public AnchorPane getHomeView() {
         try {
             homeView = new FXMLLoader(getClass().getResource("/fxml/Home.fxml")).load();
@@ -56,6 +89,11 @@ public class ViewFactory {
         return homeView;
     }
 
+    /**
+     * Gets add staff member view.
+     *
+     * @return the add staff member view
+     */
     public AnchorPane getAddStaffMemberView() {
         try {
             addStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/AddStaffMember.fxml")).load();
@@ -65,6 +103,11 @@ public class ViewFactory {
         return addStaffMemberView;
     }
 
+    /**
+     * Gets view staff member view.
+     *
+     * @return the view staff member view
+     */
     public AnchorPane getViewStaffMemberView() {
         try {
             viewStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMembers.fxml")).load();
@@ -74,6 +117,11 @@ public class ViewFactory {
         return viewStaffMemberView;
     }
 
+    /**
+     * Gets edit staff member view.
+     *
+     * @return the edit staff member view
+     */
     public AnchorPane getEditStaffMemberView() {
         try {
             editStaffMemberView = new FXMLLoader(getClass().getResource("/fxml/staff/EditStaffMember.fxml")).load();
@@ -83,6 +131,11 @@ public class ViewFactory {
         return editStaffMemberView;
     }
 
+    /**
+     * Gets view staff member details view.
+     *
+     * @return the view staff member details view
+     */
     public AnchorPane getViewStaffMemberDetailsView() {
         try {
             viewStaffMemberDetailsView = new FXMLLoader(getClass().getResource("/fxml/staff/ViewStaffMember.fxml")).load();
@@ -92,6 +145,11 @@ public class ViewFactory {
         return viewStaffMemberDetailsView;
     }
 
+    /**
+     * Gets add duty view.
+     *
+     * @return the add duty view
+     */
     public AnchorPane getAddDutyView() {
         try {
             addDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/AddDuty.fxml")).load();
@@ -101,6 +159,11 @@ public class ViewFactory {
         return addDutyView;
     }
 
+    /**
+     * Gets edit duty view.
+     *
+     * @return the edit duty view
+     */
     public AnchorPane getEditDutyView() {
         try {
             editDutyView = new FXMLLoader(getClass().getResource("/fxml/duty/EditDuty.fxml")).load();
@@ -110,6 +173,11 @@ public class ViewFactory {
         return editDutyView;
     }
 
+    /**
+     * Gets view duties view.
+     *
+     * @return the view duties view
+     */
     public AnchorPane getViewDutiesView() {
         try {
             viewDutyDetailsView = new FXMLLoader(getClass().getResource("/fxml/duty/ViewDuties.fxml")).load();
@@ -119,11 +187,17 @@ public class ViewFactory {
         return viewDutyDetailsView;
     }
 
+    /**
+     * Show login window.
+     */
     public void showLoginWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
         createStage(fxmlLoader);
     }
 
+    /**
+     * Show dashboard window.
+     */
     public void showDashboardWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/Dashboard.fxml"));
         DashboardController dashboardController = new DashboardController();
@@ -131,6 +205,11 @@ public class ViewFactory {
         createStage(fxmlLoader);
     }
 
+    /**
+     * Create stage.
+     *
+     * @param fxmlLoader the fxml loader
+     */
     public void createStage(FXMLLoader fxmlLoader) {
         Scene scene = null;
         try {
@@ -144,6 +223,11 @@ public class ViewFactory {
         stage.show();
     }
 
+    /**
+     * Close stage.
+     *
+     * @param stage the stage
+     */
     public void closeStage(Stage stage) {
         stage.close();
     }

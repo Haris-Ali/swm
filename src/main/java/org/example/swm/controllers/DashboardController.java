@@ -10,6 +10,11 @@ import java.util.ResourceBundle;
 public class DashboardController implements Initializable {
     public BorderPane dashboard_parent;
 
+    /**
+     * Function to switch the center view of dashboard border pane based on selected menu item chagne
+     * @param url the current url
+     * @param resourceBundle the resource bundle
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         ViewFactoryModel
