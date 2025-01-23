@@ -15,6 +15,10 @@ class PasswordServiceTest {
         mockPasswordService = new MockPasswordService();
     }
 
+    /**
+     * Test for a new user signup/save
+     * @throws NoSuchAlgorithmException algorithm exception
+     */
     @Test
     void saveVerifyUserSuccessTest() throws NoSuchAlgorithmException {
         String username = "testuser1";
@@ -26,6 +30,10 @@ class PasswordServiceTest {
     }
 
 
+    /**
+     * Test for a wrong user password
+     * @throws NoSuchAlgorithmException algorithm exception
+     */
     @Test
     void verifyUserWrongPasswordTest() throws NoSuchAlgorithmException {
         String username = "testuser1";
@@ -36,6 +44,10 @@ class PasswordServiceTest {
         assertFalse(isVerified, "User verification should fail with incorrect password");
     }
 
+    /**
+     * Test for a wrong username
+     * @throws NoSuchAlgorithmException algorithm exception
+     */
     @Test
     void verifyUserWrongUsernameTest() throws NoSuchAlgorithmException {
         String username = "testuser1";

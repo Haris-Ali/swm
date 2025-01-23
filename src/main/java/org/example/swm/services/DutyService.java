@@ -207,7 +207,7 @@ public class DutyService {
      */
     public void removeAllDuties() {
         try {
-            File dutiesFolder = new File(DATA_DIRECTORY_PATH, DUTY_DIRECTORY_PATH);
+            File dutiesFolder = new File(DUTY_DIRECTORY_PATH);
 
             for (File file : Objects.requireNonNull(dutiesFolder.listFiles())) {
                 if (file.isFile() && file.getName().endsWith(".dat")) {
@@ -219,6 +219,7 @@ public class DutyService {
             }
             System.out.println("All duties have been removed.");
         } catch (Exception e) {
+            System.out.println(e);
             System.out.println("Error while removing all duties: " + e.getMessage());
         }
     }

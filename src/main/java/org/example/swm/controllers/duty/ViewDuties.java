@@ -6,6 +6,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.util.Callback;
 import org.example.swm.models.Duty;
+import org.example.swm.models.StaffMember;
 import org.example.swm.models.ViewFactoryModel;
 import org.example.swm.services.DutyService;
 import org.example.swm.services.StaffService;
@@ -164,7 +165,15 @@ public class ViewDuties implements Initializable {
     private void handleDeleteAllAction() {
         duties_table.getItems().clear();
         dutyService.removeAllDuties();
-        staffService.removeAllStaffMembers();
+        HashMap<Integer, StaffMember> staffMembers = staffService.readFromFile();
+        for (StaffMember staffMember: staffMembers.values()) {
+            staffService.updateTotalWorkload(staffMember.getId(), 0);
+            staffService.updateAtsrWorkload(staffMember.getId(), 0);
+            staffService.updateTsWorkload(staffMember.getId(), 0);
+            staffService.updateTlrWorkload(staffMember.getId(), 0);
+            staffService.updateSaWorkload(staffMember.getId(), 0);
+            staffService.updateOtherWorkload(staffMember.getId(), 0);
+        }
     }
 
     /**
